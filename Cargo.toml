@@ -1,0 +1,9 @@
+# Workspace for Project Euler's Problems
+
+[workspace]
+
+members = [
+    "utils",
+    "e001",
+    "e002",
+]
