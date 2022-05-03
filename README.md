@@ -12,3 +12,8 @@ To run a specific problem's executable run:
 cargo run -p e###
 ```
 with replacing ### with the problem's id
+
+To test all utility functions run:
+```console
+cargo test -p utils
+```

@@ -10,16 +10,13 @@ pub fn fibonacci_term(term: u64) -> u64 {
     }
 }
 
-pub fn add_one(x: i32) -> i32 {
-    x + 1
-}
-
 #[cfg(test)]
-mod tests {
+mod utils_tests {
     use super::*;
 
     #[test]
-    fn it_works() {
-        assert_eq!(3, add_one(2));
+    fn fibonacci_term_works() {
+        assert_eq!(8, fibonacci_term(5), "Testing fibonacci_term({})", 5);
+        assert_eq!(89, fibonacci_term(10), "Testing fibonacci_term({})", 10);
     }
 }
