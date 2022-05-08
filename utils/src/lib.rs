@@ -43,4 +43,10 @@ mod utils_tests {
         assert_eq!(vec![2, 2, 5], primes::prime_factors(20));
         assert_eq!(vec![2, 2, 5, 23], primes::prime_factors(460));
     }
+
+    #[test]
+    fn least_common_multiple() {
+        assert_eq!(60, primes::least_common_multiple(&vec![2, 5, 1, 3, 4]));
+        assert_eq!(84, primes::least_common_multiple(&vec![4, 7, 12, 21, 42]));
+    }
 }

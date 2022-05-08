@@ -55,3 +55,51 @@ pub fn prime_factors(n: u64) -> Vec<u64> {
 
     prime_factors
 }
+
+pub fn least_common_multiple(numbers: &Vec<u64>) -> u64 {
+    // Find the biggest number
+    let mut biggest: u64 = 0;
+    for n in numbers {
+        if n > &biggest {
+            biggest = *n;
+        }
+    }
+    // Find all primes up to the biggest number
+    let prime_vec = primes_under(biggest + 1);
+    // Divide all numbers by each off the primes, 
+    // and storing the primes that divide at least one
+    // number untill all of them are 1
+    let mut quotients = numbers.clone();
+    let mut prime_factors: Vec<u64> = Vec::new();
+
+    for prime in prime_vec {
+        let mut all_are_ones = true;
+        loop {
+            let mut divides_smt = false;
+            for q in &mut quotients {
+                if *q % prime == 0 {
+                    *q /= prime;
+                    divides_smt = true;
+                }
+                if *q > 1 {
+                    all_are_ones = false;
+                }
+            }
+            if divides_smt {
+                prime_factors.push(prime);
+            } else {
+                break;
+            }
+        }
+        if all_are_ones {
+            break;
+        }
+    }
+    // Multiply all prime factors stored to get the lcm
+    let mut lcm: u64 = 1;
+    for pf in prime_factors {
+        lcm *= pf;
+    }
+
+    lcm
+}
