@@ -12,6 +12,13 @@ mod utils_tests {
     // Misc
 
     #[test]
+    fn ordinal_number() {
+        assert_eq!(String::from("111st"), misc::ordinal_number(111));
+        assert_eq!(String::from("222nd"), misc::ordinal_number(222));
+        assert_eq!(String::from("333th"), misc::ordinal_number(333));
+    }
+
+    #[test]
     fn fibonacci_term() {
         assert_eq!(8, misc::fibonacci_term(5), "Testing fibonacci_term({})", 5);
         assert_eq!(89, misc::fibonacci_term(10), "Testing fibonacci_term({})", 10);

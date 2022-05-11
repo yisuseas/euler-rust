@@ -1,5 +1,15 @@
 // Misc. Functions
 
+pub fn ordinal_number(n: usize) -> String {
+    let ending = match n % 10 {
+        1 => "st",
+        2 => "nd",
+        _ => "th",
+    };
+
+    format!("{}{}", &n, ending)
+}
+
 pub fn fibonacci_term(term: u64) -> u64 {
     if term < 1 {
         return 0;
