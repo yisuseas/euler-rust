@@ -21,7 +21,7 @@ fn main() {
     let mut greatest_factors = &digit_array[0..adj_digits];
     let mut greatest_product = 0;
     for start in 0..(1_000 - adj_digits) {
-        let mut factors = &digit_array[start..start + adj_digits];
+        let factors = &digit_array[start..start + adj_digits];
         let mut product: u64 = 1;
         for factor in factors {
             product *= *factor as u64;
