@@ -7,6 +7,7 @@ fn main() {
     let n: u64 = 600_851_475_143;
 
     println!("The prime factors of {} are:\n{:?}", &n, primes::prime_factors(n));
+    println!("The prime factors of {} are:\n{:?}", &n, primes::prime_factors_hm(n));
 }
 
 #[cfg(test)]

@@ -1,5 +1,7 @@
 // Prime number related functions
 
+use std::collections::HashMap;
+
 pub fn primes_under(n: u64) -> Vec<u64> {
     let mut primes: Vec<u64> = Vec::new();
 
@@ -54,6 +56,37 @@ pub fn prime_factors(n: u64) -> Vec<u64> {
     }
 
     prime_factors
+}
+
+pub fn prime_factors_hm(n: u64) -> HashMap<u64, u16> {
+    let mut pf: HashMap<u64, u16> = HashMap::new();
+    
+    let primes_under_n = primes_under(
+        (n as f64).sqrt() as u64 + 2
+    );
+
+    let mut quotient = n;
+    for prime in &primes_under_n {
+        loop {
+            if quotient % prime == 0 {
+                let exp: &mut u16 = pf
+                                   .entry(*prime)
+                                   .or_insert(0u16);
+                quotient = quotient / prime;
+                *exp += 1;
+            } else {
+                break;
+            }
+        }
+        if quotient == 1 {
+            break;
+        }
+    }
+    if quotient > 1 {
+        pf.insert(quotient, 1);
+    }
+
+    pf
 }
 
 pub fn least_common_multiple(numbers: &Vec<u64>) -> u64 {
