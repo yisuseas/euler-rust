@@ -7,6 +7,7 @@ pub mod primes;
 
 #[cfg(test)]
 mod utils_tests {
+    use std::collections::HashMap;
     use super::*;
 
     // Misc
@@ -49,6 +50,12 @@ mod utils_tests {
     fn prime_factors() {
         assert_eq!(vec![2, 2, 5], primes::prime_factors(20));
         assert_eq!(vec![2, 2, 5, 23], primes::prime_factors(460));
+    }
+
+    #[test]
+    fn prime_factors_hm() {
+        assert_eq!(HashMap::from([(2, 2), (5, 1)]), primes::prime_factors_hm(20));
+        assert_eq!(HashMap::from([(2, 2), (5, 1), (23, 1)]), primes::prime_factors_hm(460));
     }
 
     #[test]
