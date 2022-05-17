@@ -41,9 +41,11 @@
 //         self.cache[&destination]
 //     }
 
-//     fn solve_problem(&mut self, side_length: u8) {
+//     fn solve_problem(&mut self, side_length: u8) -> u64 {
 //         let answer = self.count_routes((side_length, side_length));
-//         println!("There are {0} routes in the {1}x{1} grid", answer, side_length);
+//        println!("How many routes are there in a {0}x{0} grid?", &side_length);
+
+//        answer
 //     }
 // }
 
@@ -67,17 +69,37 @@ impl Iterative {
         grid[m][n]
     }
 
-    fn solve_problem(side_length: usize) {
+    fn solve_problem(side_length: usize) -> u64 {
         let answer = Iterative::count_routes(side_length, side_length);
-        println!("There are {0} routes in the {1}x{1} grid", answer, side_length);
+        println!("How many routes are there in a {0}x{0} grid?", &side_length);
+
+        answer
     }
 }
 
-fn main() {
+fn answer() -> u64 {
     let side_lenght: u8 = 20;
 
     // let mut r=Recursive::new();
-    // r.solve_problem(side_lenght);
+    // r.solve_problem(side_lenght)
 
-    Iterative::solve_problem(side_lenght as usize);
+    Iterative::solve_problem(side_lenght as usize)
+}
+
+fn main() {
+    let a = answer();
+    println!("\nAnswer: {}\n", &a);
+}
+
+////////////////////////////////////////////////////////////
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn check_answer() {
+        let expected = 137846528820;
+        assert_eq!(expected, answer());
+    }
 }

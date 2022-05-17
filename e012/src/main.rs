@@ -15,7 +15,7 @@
 
 use utils::primes;
 
-fn main() {
+fn answer() -> u32 {
     let target: u16 = 500;
     let mut last_triangle: u32 = 0;
 
@@ -36,6 +36,26 @@ fn main() {
         }
     }
 
-    println!("The first triangle number to have over {} divisors is:", target);
-    println!("term: {}\ntriangle: {}", term, last_triangle);
+    println!("What is the value of the first triangle number to have over {} divisors?", target);
+    println!("term: {}    value: {}", term, last_triangle);
+
+    last_triangle
+}
+
+fn main() {
+    let a = answer();
+    println!("\nAnswer: {}\n", &a);
+}
+
+////////////////////////////////////////////////////////////
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn check_answer() {
+        let expected = 76576500;
+        assert_eq!(expected, answer());
+    }
 }

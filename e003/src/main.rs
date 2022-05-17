@@ -3,19 +3,31 @@
 
 use utils::primes;
 
-fn main() {
+fn answer() -> u64 {
     let n: u64 = 600_851_475_143;
+    let pf = primes::prime_factors_vec(n);
+    let last = pf.last().unwrap().clone();
 
-    println!("The prime factors of {} are:\n{:?}", &n, primes::prime_factors(n));
-    println!("The prime factors of {} are:\n{:?}", &n, primes::prime_factors_hm(n));
+    println!("The prime factors of {} are:\n{:?}", &n, &pf);
+    println!("What is the largest prime factor of the number {}?", &n);
+
+    last
 }
 
+fn main() {
+    let a = answer();
+    println!("\nAnswer: {}\n", &a);
+}
+
+////////////////////////////////////////////////////////////
+
 #[cfg(test)]
-mod e003_tests {
+mod tests {
     use super::*;
 
     #[test]
-    fn example_works() {
-        assert_eq!(vec![5, 7, 13, 29], primes::prime_factors(13_195));
+    fn check_answer() {
+        let expected = 6857;
+        assert_eq!(expected, answer());
     }
 }

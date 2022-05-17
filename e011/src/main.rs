@@ -14,7 +14,7 @@ fn display_number(number: u8, enfasis: bool) -> String {
     )
 }
 
-fn main() {
+fn answer() -> u32 {
     let number_grid: [[u8; 20]; 20] = [
         [08, 02, 22, 97, 38, 15, 00, 40, 00, 75, 04, 05, 07, 78, 52, 12, 50, 77, 91, 08],
         [49, 49, 99, 40, 17, 81, 18, 57, 60, 87, 17, 40, 98, 43, 69, 48, 04, 56, 62, 00],
@@ -99,6 +99,9 @@ fn main() {
         }
     }
 
+    println!("The red numbers make the greatest product of {} adjacent numbers", adj_numbers);
+    println!("in the same direction in the 20x20 grid:\n");
+
     // Display
     for row in 0..20 {
         for col in 0..20 {
@@ -111,7 +114,23 @@ fn main() {
         print!("\n");
     }
 
-    println!("\nThe greatest product of {} adjacent numbers in", adj_numbers);
-    println!("the same direction in the 20x20 grid is:");
-    println!("{}", greatest_product);
+    greatest_product
+}
+
+fn main() {
+    let a = answer();
+    println!("\nAnswer: {}\n", &a);
+}
+
+////////////////////////////////////////////////////////////
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn check_answer() {
+        let expected = 70600674;
+        assert_eq!(expected, answer());
+    }
 }

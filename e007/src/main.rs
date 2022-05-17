@@ -4,7 +4,7 @@
 
 use utils::misc;
 
-fn main() {
+fn answer() -> u64 {
     let target: usize = 10_001;
 
     let mut prime_vec: Vec<u64> = vec![2, 3];
@@ -36,8 +36,27 @@ fn main() {
     }
 
     println!(
-        "The {} prime is {:?}",
-        misc::ordinal_number(target),
-        &prime_vec.last().unwrap()
+        "What is the {} prime number?",
+        misc::ordinal_number(target)
     );
+
+    prime_vec.last().unwrap().clone()
+}
+
+fn main() {
+    let a = answer();
+    println!("\nAnswer: {}\n", &a);
+}
+
+////////////////////////////////////////////////////////////
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn check_answer() {
+        let expected = 104743;
+        assert_eq!(expected, answer());
+    }
 }

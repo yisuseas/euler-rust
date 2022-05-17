@@ -21,3 +21,8 @@ To run unit tests of utility functions run:
 ```console
 cargo test -p utils
 ```
+
+To run unit tests of all problems and utility functions run:
+```console
+cargo test --release
+```

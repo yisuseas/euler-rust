@@ -4,24 +4,45 @@
 // By considering the terms in the Fibonacci sequence whose values do not exceed four million,
 // find the sum of the even-valued terms.
 
-fn main() {
+fn answer() -> u64 {
     let target: u64 = 4_000_000;
 
     let mut last_two: (u64, u64) = (1, 1);
     let mut value: u64 = last_two.0 + last_two.1;
     
     let mut even_sum: u64 = 0;
-    let mut iteration_count: u64 = 0;
     
     while value <= target {
-        iteration_count += 1;
         even_sum += value;
         last_two.0 = last_two.1 + value;
         last_two.1 = value + last_two.0;
         value = last_two.0 + last_two.1;
     }
 
-    println!("The sum of even-valued terms that don't exceed {} is {}", target, even_sum);
+    println!(
+        "Considering the terms in the Fibonacci sequence whose values do not exceed {}",
+        target
+    );
     println!("Next even value would be {}", value);
-    println!("Made {} iterations", iteration_count);
+    println!("Find the sum of the even-valued terms.");
+
+    even_sum
+}
+
+fn main() {
+    let a = answer();
+    println!("\nAnswer: {}\n", &a);
+}
+
+////////////////////////////////////////////////////////////
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn check_answer() {
+        let expected = 4613732;
+        assert_eq!(expected, answer());
+    }
 }

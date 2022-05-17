@@ -9,7 +9,7 @@ fn u8_to_char(n: &u8) -> char {
     (*n + 48) as char
 }
 
-fn main() {
+fn answer() -> String {
     let number_array = [
         "37107287533902102798797998220837590246510135740250",
         "46376937677490009712648124896970078050417018260538",
@@ -139,4 +139,25 @@ fn main() {
     }
 
     println!("The sum of all 100 50-digit numbers is:\n{}", sum_string);
+    println!("Work out the first ten digits.");
+
+    String::from(&sum_string[..10])
+}
+
+fn main() {
+    let a = answer();
+    println!("\nAnswer: {}\n", &a);
+}
+
+////////////////////////////////////////////////////////////
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn check_answer() {
+        let expected = String::from("5537376230");
+        assert_eq!(expected, answer());
+    }
 }

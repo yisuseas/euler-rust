@@ -21,8 +21,8 @@ mod utils_tests {
 
     #[test]
     fn fibonacci_term() {
-        assert_eq!(8, misc::fibonacci_term(5), "Testing fibonacci_term({})", 5);
-        assert_eq!(89, misc::fibonacci_term(10), "Testing fibonacci_term({})", 10);
+        assert_eq!(8, misc::fibonacci_term(5), "Testing 'fibonacci_term({})'", 5);
+        assert_eq!(89, misc::fibonacci_term(10), "Testing 'fibonacci_term({})'", 10);
     }
 
     #[test]
@@ -48,8 +48,8 @@ mod utils_tests {
 
     #[test]
     fn prime_factors() {
-        assert_eq!(vec![2, 2, 5], primes::prime_factors(20));
-        assert_eq!(vec![2, 2, 5, 23], primes::prime_factors(460));
+        assert_eq!(vec![2, 2, 5], primes::prime_factors_vec(20));
+        assert_eq!(vec![2, 2, 5, 23], primes::prime_factors_vec(460));
     }
 
     #[test]

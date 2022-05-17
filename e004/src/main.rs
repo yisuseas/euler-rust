@@ -5,7 +5,7 @@
 
 use utils::misc;
 
-fn main() {
+fn answer() -> u64 {
     let digit_count: u32 = 3;
 
     let start: u64 = 10u64.pow(digit_count - 1);
@@ -29,8 +29,27 @@ fn main() {
     }
 
     println!(
-        "The largest palindrome made from the product of {}-digit numbers is:\n{}",
+        "Find the largest palindrome made from the product of two {}-digit numbers.",
         digit_count,
-        largest_palindrome
     );
+
+    largest_palindrome
+}
+
+fn main() {
+    let a = answer();
+    println!("\nAnswer: {}\n", &a);
+}
+
+////////////////////////////////////////////////////////////
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn check_answer() {
+        let expected = 906609;
+        assert_eq!(expected, answer());
+    }
 }

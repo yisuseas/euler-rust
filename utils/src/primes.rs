@@ -33,7 +33,7 @@ pub fn primes_under(n: u64) -> Vec<u64> {
     primes
 }
 
-pub fn prime_factors(n: u64) -> Vec<u64> {
+pub fn prime_factors_vec(n: u64) -> Vec<u64> {
     let mut prime_factors: Vec<u64> = Vec::new();
     let primes_under_n = primes_under((n as f64).sqrt() as u64 + 2);
 

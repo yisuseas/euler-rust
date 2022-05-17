@@ -41,7 +41,7 @@ impl Collatz {
     }
 }
 
-fn main() {
+fn answer() -> u64 {
     let target = 1_000_000;
     let mut longest_chain = 0;
     let mut answer = 0;
@@ -58,6 +58,27 @@ fn main() {
         }
     }
 
-    println!("The greatest Collatz Sequence");
-    println!("for starting numbers under {} starts from:\n{}", target, answer);
+    println!("Find the greatest Collatz Sequence");
+    println!("for starting numbers under {}.", target);
+    println!("Which number produces it?");
+
+    answer
+}
+
+fn main() {
+    let a = answer();
+    println!("\nAnswer: {}\n", &a);
+}
+
+////////////////////////////////////////////////////////////
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn check_answer() {
+        let expected = 837799;
+        assert_eq!(expected, answer());
+    }
 }

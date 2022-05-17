@@ -5,15 +5,31 @@
 
 use utils::primes;
 
-fn main() {
+fn answer() -> u64 {
     let mut v: Vec<u64> = Vec::new();
     for i in 2..=20 {
         v.push(i);
     }
 
-    println!(
-        "Given the numbers:\n{:?}\nThe lcm is:\n{}",
-        &v,
-        primes::least_common_multiple(&v)
-    );
+    println!("What is the smallest integer evenly divisible by all of the numbers from 1 to 20?");
+
+    primes::least_common_multiple(&v)
+}
+
+fn main() {
+    let a = answer();
+    println!("\nAnswer: {}\n", &a);
+}
+
+////////////////////////////////////////////////////////////
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn check_answer() {
+        let expected = 232792560;
+        assert_eq!(expected, answer());
+    }
 }

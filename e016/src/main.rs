@@ -34,7 +34,7 @@ fn digits_to_string(digits: &Vec<u8>) -> String {
     s
 }
 
-fn main() {
+fn answer() -> u128 {
     let target_exp: usize = 1_000;
     let digits = {
         let mut product: Vec<u8> = vec![1];
@@ -47,9 +47,28 @@ fn main() {
                       .fold(0u128, |sum, &digit| sum + digit as u128);
 
     println!(
-        "2^{} = {}\nThe sum of its digits is: {}",
+        "2^{} = {}\nWhat is the sum of its digits?",
         target_exp,
         digits_to_string(&digits),
-        answer
     );
+
+    answer
+}
+
+fn main() {
+    let a = answer();
+    println!("\nAnswer: {}\n", &a);
+}
+
+////////////////////////////////////////////////////////////
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn check_answer() {
+        let expected = 1366;
+        assert_eq!(expected, answer());
+    }
 }
