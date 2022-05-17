@@ -21,6 +21,7 @@ pub fn fibonacci_term(term: u64) -> u64 {
     }
 }
 
+// TODO: take any positive integer, return a vector of u8
 pub fn digits_of(n: u64) -> Vec<u64> {
     if n == 0 {
         return vec![n];
