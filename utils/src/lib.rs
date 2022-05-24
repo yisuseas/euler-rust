@@ -13,6 +13,18 @@ mod utils_tests {
     // Misc
 
     #[test]
+    fn u8_to_char() {
+        assert_eq!('8', misc::u8_to_char(8));
+        assert_eq!('0', misc::u8_to_char(0));
+    }
+
+    #[test]
+    fn char_to_u8() {
+        assert_eq!(8, misc::char_to_u8('8'));
+        assert_eq!(0, misc::char_to_u8('0'));
+    }
+
+    #[test]
     fn ordinal_number() {
         assert_eq!(String::from("111st"), misc::ordinal_number(111));
         assert_eq!(String::from("222nd"), misc::ordinal_number(222));
@@ -41,13 +53,13 @@ mod utils_tests {
 
     #[test]
     fn primes_under() {
-        let empty_vec: Vec<u64> = vec![];
+        let empty_vec: Vec<usize> = Vec::new();
         assert_eq!(empty_vec, primes::primes_under(2));
         assert_eq!(vec![2, 3, 5, 7], primes::primes_under(10));
     }
 
     #[test]
-    fn prime_factors() {
+    fn prime_factors_vec() {
         assert_eq!(vec![2, 2, 5], primes::prime_factors_vec(20));
         assert_eq!(vec![2, 2, 5, 23], primes::prime_factors_vec(460));
     }

@@ -1,5 +1,15 @@
 // Misc. Functions
 
+pub fn char_to_u8(c: char) -> u8 {
+    c as u8 - 48
+}
+
+
+pub fn u8_to_char(n: u8) -> char {
+    (n + 48) as char
+}
+
+
 pub fn ordinal_number(n: usize) -> String {
     let ending = match n % 10 {
         1 => "st",
@@ -9,6 +19,7 @@ pub fn ordinal_number(n: usize) -> String {
 
     format!("{}{}", &n, ending)
 }
+
 
 pub fn fibonacci_term(term: u64) -> u64 {
     if term < 1 {
@@ -21,30 +32,22 @@ pub fn fibonacci_term(term: u64) -> u64 {
     }
 }
 
-// TODO: take any positive integer, return a vector of u8
-pub fn digits_of(n: u64) -> Vec<u64> {
-    if n == 0 {
-        return vec![n];
-    }
-    let mut n_copy = n;
-    let mut digits: Vec<u64> = Vec::new(); 
-    while n_copy > 0 {
-        let digit = n_copy % 10;
-        digits.push(digit);
-        n_copy /= 10;
-    }
-    digits.reverse();
 
-    digits
+pub fn digits_of<T: std::fmt::Display>(n: T) -> Vec<u8> {
+    let digits_str = n.to_string();
+    let mut digits_vec = Vec::new();
+    for ch in digits_str.chars() {
+        digits_vec.push(char_to_u8(ch));
+    }
+
+    digits_vec
 }
 
-pub fn is_palindromic(n: u64) -> bool {
-    if n < 10 {
-        return true;
-    }
-    let digits = digits_of(n);
-    let mut l_idx: usize = 0;
-    let mut r_idx: usize = digits.len() - 1;
+
+pub fn is_palindromic<T: std::fmt::Display>(x: T) -> bool {
+    let digits = digits_of(x);
+    let mut l_idx = 0;
+    let mut r_idx = digits.len() - 1;
     while l_idx < r_idx {
         if digits[l_idx] != digits[r_idx] {
             return false;

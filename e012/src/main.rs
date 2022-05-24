@@ -23,7 +23,7 @@ fn answer() -> u32 {
     loop {
         let triangle = last_triangle + term;
 
-        let divisors: u16 = primes::prime_factors_hm(triangle as u64)
+        let divisors: u16 = primes::prime_factors_hm(triangle as usize)
                            .values()
                            .fold(1, |d, &exp| d * (exp + 1));
 
@@ -50,7 +50,7 @@ fn main() {
 ////////////////////////////////////////////////////////////
 
 #[cfg(test)]
-mod tests {
+mod e012_tests {
     use super::*;
 
     #[test]

@@ -2,6 +2,8 @@
 // 3 + 2 + 7 + 6 + 8 = 26.
 // What is the sum of the digits of the number 2^1000?
 
+use utils::misc;
+
 fn two_times(digits: &Vec<u8>) -> Vec<u8> {
     let mut product: Vec<u8> = Vec::new();
 
@@ -20,14 +22,10 @@ fn two_times(digits: &Vec<u8>) -> Vec<u8> {
     product
 }
 
-fn u8_to_char(n: &u8) -> char {
-    (*n + 48) as char
-}
-
 fn digits_to_string(digits: &Vec<u8>) -> String {
     let mut s = String::new();
-    for digit in digits {
-        let ch = u8_to_char(digit);
+    for &digit in digits {
+        let ch = misc::u8_to_char(digit);
         s.push(ch);
     }
 
@@ -63,7 +61,7 @@ fn main() {
 ////////////////////////////////////////////////////////////
 
 #[cfg(test)]
-mod tests {
+mod e016_tests {
     use super::*;
 
     #[test]

@@ -5,8 +5,8 @@
 
 use utils::primes;
 
-fn answer() -> u64 {
-    let mut v: Vec<u64> = Vec::new();
+fn answer() -> usize {
+    let mut v: Vec<usize> = Vec::new();
     for i in 2..=20 {
         v.push(i);
     }
@@ -24,7 +24,7 @@ fn main() {
 ////////////////////////////////////////////////////////////
 
 #[cfg(test)]
-mod tests {
+mod e005_tests {
     use super::*;
 
     #[test]

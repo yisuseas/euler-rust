@@ -3,7 +3,7 @@
 
 use utils::primes;
 
-fn answer() -> u64 {
+fn answer() -> usize {
     let target = 2_000_000;
     
     let prime_vec = primes::primes_under(target);
@@ -27,7 +27,7 @@ fn main() {
 ////////////////////////////////////////////////////////////
 
 #[cfg(test)]
-mod tests {
+mod e010_tests {
     use super::*;
 
     #[test]

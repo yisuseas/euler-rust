@@ -5,8 +5,8 @@ use utils::primes;
 
 fn answer() -> u64 {
     let n: u64 = 600_851_475_143;
-    let pf = primes::prime_factors_vec(n);
-    let last = pf.last().unwrap().clone();
+    let pf = primes::prime_factors_vec(n as usize);
+    let last = pf.last().unwrap().clone() as u64;
 
     println!("The prime factors of {} are:\n{:?}", &n, &pf);
     println!("What is the largest prime factor of the number {}?", &n);
@@ -22,7 +22,7 @@ fn main() {
 ////////////////////////////////////////////////////////////
 
 #[cfg(test)]
-mod tests {
+mod e003_tests {
     use super::*;
 
     #[test]

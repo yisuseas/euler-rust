@@ -1,13 +1,7 @@
 // Work out the first ten digits of the sum of
 // the following one-hundred 50-digit numbers.
 
-fn char_to_u8(c: &char) -> u8 {
-    *c as u8 - 48
-}
-
-fn u8_to_char(n: &u8) -> char {
-    (*n + 48) as char
-}
+use utils::misc;
 
 fn answer() -> String {
     let number_array = [
@@ -120,7 +114,7 @@ fn answer() -> String {
         // Calculate the column sum
         for number in number_array {
             let digit_char = number.chars().nth(idx).unwrap();
-            col_sum += char_to_u8(&digit_char) as u16;
+            col_sum += misc::char_to_u8(digit_char) as u16;
         }
         // Save the result
         sum_digits.push((col_sum % 10) as u8);
@@ -133,8 +127,8 @@ fn answer() -> String {
     }
     // Save the digits into a string
     let mut sum_string = String::new();
-    for digit in sum_digits.iter().rev() {
-        let ch = u8_to_char(digit);
+    for &digit in sum_digits.iter().rev() {
+        let ch = misc::u8_to_char(digit);
         sum_string.push(ch);
     }
 
@@ -152,7 +146,7 @@ fn main() {
 ////////////////////////////////////////////////////////////
 
 #[cfg(test)]
-mod tests {
+mod e013_tests {
     use super::*;
 
     #[test]

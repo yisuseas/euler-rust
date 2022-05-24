@@ -2,20 +2,19 @@
 
 use std::collections::HashMap;
 
-pub fn primes_under(n: u64) -> Vec<u64> {
-    let mut primes: Vec<u64> = Vec::new();
+
+pub fn primes_under(n: usize) -> Vec<usize> {
+    let mut primes: Vec<usize> = Vec::new();
 
     if n > 2 {
-        let mut all_numbers = vec![true; (n - 2) as usize];
+        let mut all_numbers = vec![true; n - 2];
 
-        // println!("{} / {}", all_numbers.capacity(), isize::MAX);
-
-        for number in 2..(n as f64).sqrt() as u64 + 1 {
-            let number_idx = (number - 2) as usize;
+        for number in 2..(n as f64).sqrt() as usize + 1 {
+            let number_idx = number - 2;
             if all_numbers[number_idx] {
                 let mut multiple = number * number;
                 while multiple < n {
-                    let multiple_idx = (multiple - 2) as usize;
+                    let multiple_idx = multiple - 2;
                     all_numbers[multiple_idx] = false;
                     multiple += number;
                 }
@@ -24,7 +23,7 @@ pub fn primes_under(n: u64) -> Vec<u64> {
 
         for (idx, is_prime) in all_numbers.into_iter().enumerate() {
             if is_prime {
-                let prime_number = (idx + 2) as u64;
+                let prime_number = idx + 2;
                 primes.push(prime_number);
             }
         }
@@ -33,16 +32,17 @@ pub fn primes_under(n: u64) -> Vec<u64> {
     primes
 }
 
-pub fn prime_factors_vec(n: u64) -> Vec<u64> {
-    let mut prime_factors: Vec<u64> = Vec::new();
-    let primes_under_n = primes_under((n as f64).sqrt() as u64 + 2);
+
+pub fn prime_factors_vec(n: usize) -> Vec<usize> {
+    let mut prime_factors: Vec<usize> = Vec::new();
+    let primes_under_n = primes_under((n as f64).sqrt() as usize + 2);
 
     let mut quotient = n;
-    for prime in &primes_under_n {
+    for &prime in &primes_under_n {
         loop {
             if quotient % prime == 0 {
-                quotient = quotient / prime;
-                prime_factors.push(*prime);
+                quotient /= prime;
+                prime_factors.push(prime);
             } else {
                 break;
             }
@@ -58,21 +58,22 @@ pub fn prime_factors_vec(n: u64) -> Vec<u64> {
     prime_factors
 }
 
-pub fn prime_factors_hm(n: u64) -> HashMap<u64, u16> {
-    let mut pf: HashMap<u64, u16> = HashMap::new();
+
+pub fn prime_factors_hm(n: usize) -> HashMap<usize, u16> {
+    let mut pf: HashMap<usize, u16> = HashMap::new();
     
     let primes_under_n = primes_under(
-        (n as f64).sqrt() as u64 + 2
+        (n as f64).sqrt() as usize + 2
     );
 
     let mut quotient = n;
-    for prime in &primes_under_n {
+    for &prime in &primes_under_n {
         loop {
             if quotient % prime == 0 {
                 let exp: &mut u16 = pf
-                                   .entry(*prime)
+                                   .entry(prime)
                                    .or_insert(0u16);
-                quotient = quotient / prime;
+                quotient /= prime;
                 *exp += 1;
             } else {
                 break;
@@ -89,9 +90,10 @@ pub fn prime_factors_hm(n: u64) -> HashMap<u64, u16> {
     pf
 }
 
-pub fn least_common_multiple(numbers: &Vec<u64>) -> u64 {
+
+pub fn least_common_multiple(numbers: &Vec<usize>) -> usize {
     // Find the biggest number
-    let mut biggest: u64 = 0;
+    let mut biggest: usize = 0;
     for n in numbers {
         if n > &biggest {
             biggest = *n;
@@ -103,7 +105,7 @@ pub fn least_common_multiple(numbers: &Vec<u64>) -> u64 {
     // and storing the primes that divide at least one
     // number untill all of them are 1
     let mut quotients = numbers.clone();
-    let mut prime_factors: Vec<u64> = Vec::new();
+    let mut prime_factors: Vec<usize> = Vec::new();
 
     for prime in prime_vec {
         let mut all_are_ones = true;
@@ -129,7 +131,7 @@ pub fn least_common_multiple(numbers: &Vec<u64>) -> u64 {
         }
     }
     // Multiply all prime factors stored to get the lcm
-    let mut lcm: u64 = 1;
+    let mut lcm: usize = 1;
     for pf in prime_factors {
         lcm *= pf;
     }
