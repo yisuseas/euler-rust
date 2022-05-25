@@ -49,6 +49,18 @@ mod utils_tests {
         assert_eq!(false, misc::is_palindromic(12301));
     }
 
+    #[test]
+    fn written_out() {
+        assert_eq!(
+            String::from("one hundred and seventy thousand eight hundred and eighty-three"),
+            misc::written_out(170_883)
+        );
+        assert_eq!(
+            String::from("nine hundred and eighty-seven thousand six hundred and fifty-four"),
+            misc::written_out(987_654)
+        )
+    }
+
     // Primes
 
     #[test]
