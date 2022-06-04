@@ -2,6 +2,7 @@
 
 pub mod misc;
 pub mod primes;
+pub mod graph;
 
 // Tests
 
