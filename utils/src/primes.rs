@@ -1,7 +1,6 @@
-// Prime number related functions
+//! Prime number related functions
 
 use std::collections::HashMap;
-
 
 pub fn primes_under(n: usize) -> Vec<usize> {
     let mut primes: Vec<usize> = Vec::new();
@@ -137,4 +136,38 @@ pub fn least_common_multiple(numbers: &Vec<usize>) -> usize {
     }
 
     lcm
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+#[cfg(test)]
+mod tests {
+    use std::collections::HashMap;
+    use crate::primes;
+
+    #[test]
+    fn primes_under() {
+        let empty_vec: Vec<usize> = Vec::new();
+        assert_eq!(empty_vec, primes::primes_under(2));
+        assert_eq!(vec![2, 3, 5, 7], primes::primes_under(10));
+    }
+
+    #[test]
+    fn prime_factors_vec() {
+        assert_eq!(vec![2, 2, 5], primes::prime_factors_vec(20));
+        assert_eq!(vec![2, 2, 5, 23], primes::prime_factors_vec(460));
+    }
+
+    #[test]
+    fn prime_factors_hm() {
+        assert_eq!(HashMap::from([(2, 2), (5, 1)]), primes::prime_factors_hm(20));
+        assert_eq!(HashMap::from([(2, 2), (5, 1), (23, 1)]), primes::prime_factors_hm(460));
+    }
+
+    #[test]
+    fn least_common_multiple() {
+        assert_eq!(60, primes::least_common_multiple(&vec![2, 5, 1, 3, 4]));
+        assert_eq!(84, primes::least_common_multiple(&vec![4, 7, 12, 21, 42]));
+    }
 }

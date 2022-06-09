@@ -1,4 +1,4 @@
-// Misc. Functions
+//! Misc functions
 
 use std::collections::HashMap;
 
@@ -143,5 +143,62 @@ pub fn written_out(n: usize) -> String {
         }
     } else {
         return format!("{}", &cardinals[&n]);
+    }
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+#[cfg(test)]
+mod tests {
+    use crate::misc;
+
+    #[test]
+    fn u8_to_char() {
+        assert_eq!('8', misc::u8_to_char(8));
+        assert_eq!('0', misc::u8_to_char(0));
+    }
+
+    #[test]
+    fn char_to_u8() {
+        assert_eq!(8, misc::char_to_u8('8'));
+        assert_eq!(0, misc::char_to_u8('0'));
+    }
+
+    #[test]
+    fn ordinal_number() {
+        assert_eq!(String::from("111st"), misc::ordinal_number(111));
+        assert_eq!(String::from("222nd"), misc::ordinal_number(222));
+        assert_eq!(String::from("333th"), misc::ordinal_number(333));
+    }
+
+    #[test]
+    fn fibonacci_term() {
+        assert_eq!(8, misc::fibonacci_term(5), "Testing 'fibonacci_term({})'", 5);
+        assert_eq!(89, misc::fibonacci_term(10), "Testing 'fibonacci_term({})'", 10);
+    }
+
+    #[test]
+    fn digits_of() {
+        assert_eq!(vec![1, 2, 3, 4, 5], misc::digits_of(12345));
+        assert_eq!(vec![1, 0, 1], misc::digits_of(00101));
+    }
+
+    #[test]
+    fn is_palindromic() {
+        assert_eq!(true, misc::is_palindromic(012321));
+        assert_eq!(false, misc::is_palindromic(12301));
+    }
+
+    #[test]
+    fn written_out() {
+        assert_eq!(
+            String::from("one hundred and seventy thousand eight hundred and eighty-three"),
+            misc::written_out(170_883)
+        );
+        assert_eq!(
+            String::from("nine hundred and eighty-seven thousand six hundred and fifty-four"),
+            misc::written_out(987_654)
+        )
     }
 }
