@@ -62,6 +62,26 @@ pub fn is_palindromic<T: std::fmt::Display>(x: T) -> bool {
 }
 
 
+pub fn proper_divisors_of(n: usize) -> Vec<usize> {
+    // Find half of the divisors
+    let mut first_half = Vec::new();
+    for d in 2..((n as f64).sqrt() as usize) {
+        if n % d == 0 {
+            first_half.push(d);
+        }
+    }
+    // Divide n by each of them to get the other half
+    let mut second_half = Vec::new();
+    for &d in first_half.iter().rev() {
+        if n % d == 0 {
+            second_half.push(n / d);
+        }
+    }
+    // Join them
+    [vec![1], first_half, second_half].concat()
+}
+
+
 pub fn written_out(n: usize) -> String {
     let cardinals: HashMap<usize, &str> = HashMap::from([
         (0, "zero"),
@@ -188,6 +208,18 @@ mod tests {
     fn is_palindromic() {
         assert_eq!(true, misc::is_palindromic(012321));
         assert_eq!(false, misc::is_palindromic(12301));
+    }
+
+    #[test]
+    fn proper_divisors_of() {
+        assert_eq!(
+            vec![1, 2, 4, 5, 10, 11, 20, 22, 44, 55, 110],
+            misc::proper_divisors_of(220)
+        );
+        assert_eq!(
+            vec![1, 2, 4, 71, 142],
+            misc::proper_divisors_of(284)
+        );
     }
 
     #[test]
