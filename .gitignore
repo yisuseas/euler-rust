@@ -2,3 +2,5 @@
 /target
 **/*.rs.bk
 notes.md
+output.txt
+output.md

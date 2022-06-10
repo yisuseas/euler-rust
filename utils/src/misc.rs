@@ -65,7 +65,7 @@ pub fn is_palindromic<T: std::fmt::Display>(x: T) -> bool {
 pub fn proper_divisors_of(n: usize) -> Vec<usize> {
     // Find half of the divisors
     let mut first_half = Vec::new();
-    for d in 2..((n as f64).sqrt() as usize) {
+    for d in 2..((n as f64).sqrt() as usize + 1) {
         if n % d == 0 {
             first_half.push(d);
         }
@@ -73,7 +73,7 @@ pub fn proper_divisors_of(n: usize) -> Vec<usize> {
     // Divide n by each of them to get the other half
     let mut second_half = Vec::new();
     for &d in first_half.iter().rev() {
-        if n % d == 0 {
+        if n / d != d {
             second_half.push(n / d);
         }
     }
