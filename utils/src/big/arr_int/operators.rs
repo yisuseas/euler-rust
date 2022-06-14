@@ -1,7 +1,7 @@
 use super::*;
 
-impl BigInteger {
-    fn plus(&self, other: &BigInteger) -> BigInteger {
+impl ArrInteger {
+    fn plus(&self, other: &ArrInteger) -> ArrInteger {
         let mut sum_digits = [0; 200];
         let mut remainder = 0;
         for idx in (0..200).rev() {
@@ -14,10 +14,10 @@ impl BigInteger {
         if remainder > 0 {
             panic!("Attempt to add with Overflow")
         }
-        BigInteger { digits: sum_digits }
+        ArrInteger { digits: sum_digits }
     }
 
-    fn times(&self, other: &BigInteger) -> BigInteger {
+    fn times(&self, other: &ArrInteger) -> ArrInteger {
         let mut partial_mult_vec = Vec::new();
         other.digits.iter().rev()
              .enumerate()
@@ -54,9 +54,9 @@ impl BigInteger {
             let partial_mult: Vec<u8> = partial_mult.iter().rev()
                                                     .map(|a| *a)
                                                     .collect();
-            partial_mult_vec.push(BigInteger::from_digits(&partial_mult));
+            partial_mult_vec.push(ArrInteger::from_digits(&partial_mult));
         });
-        let mut product = BigInteger::new();
+        let mut product = ArrInteger::new();
         for big_int in partial_mult_vec {
             product = product.plus(&big_int);
         }
@@ -64,7 +64,7 @@ impl BigInteger {
         product
     }
 
-    fn minus(&self, other: &BigInteger) -> BigInteger {
+    fn minus(&self, other: &ArrInteger) -> ArrInteger {
         let mut digits = [0; 200];
         let mut carry = 0;
         for idx in (0..200).rev() {
@@ -83,13 +83,13 @@ impl BigInteger {
         if carry > 0 {
             panic!("Attempt to substract with Underflow");
         }
-        BigInteger { digits }
+        ArrInteger { digits }
     }
 
-    fn over(&self, other: &BigInteger) -> (BigInteger, BigInteger) {
+    fn over(&self, other: &ArrInteger) -> (ArrInteger, ArrInteger) {
         let mut remainder = self.clone();
-        let mut division = BigInteger::new();
-        let one = BigInteger::from(1);
+        let mut division = ArrInteger::new();
+        let one = ArrInteger::from(1);
         while remainder.ge(other) {
             remainder = remainder.minus(other);
             division = division + one;
@@ -99,7 +99,7 @@ impl BigInteger {
 }
 
 
-impl std::cmp::PartialOrd for BigInteger {
+impl std::cmp::PartialOrd for ArrInteger {
     fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
         let mut o = std::cmp::Ordering::Equal;
         if self == other {
@@ -118,43 +118,43 @@ impl std::cmp::PartialOrd for BigInteger {
     }
 }
 
-impl std::ops::Add for BigInteger {
-    type Output = BigInteger;
+impl std::ops::Add for ArrInteger {
+    type Output = ArrInteger;
     fn add(self, rhs: Self) -> Self::Output {
         self.plus(&rhs)
     }
 }
 
-impl std::ops::AddAssign for BigInteger {
+impl std::ops::AddAssign for ArrInteger {
     fn add_assign(&mut self, rhs: Self) {
         *self = self.plus(&rhs);
     }
 }
 
-impl std::ops::Mul for BigInteger {
-    type Output = BigInteger;
+impl std::ops::Mul for ArrInteger {
+    type Output = ArrInteger;
     fn mul(self, rhs: Self) -> Self::Output {
         self.times(&rhs)
     }
 }
 
-impl std::ops::Sub for BigInteger {
-    type Output = BigInteger;
+impl std::ops::Sub for ArrInteger {
+    type Output = ArrInteger;
     fn sub(self, rhs: Self) -> Self::Output {
         self.minus(&rhs)
     }
 }
 
-impl std::ops::Div for BigInteger {
-    type Output = BigInteger;
+impl std::ops::Div for ArrInteger {
+    type Output = ArrInteger;
     fn div(self, rhs: Self) -> Self::Output {
         let (result, _) = self.over(&rhs);
         result
     }
 }
 
-impl std::ops::Rem for BigInteger {
-    type Output = BigInteger;
+impl std::ops::Rem for ArrInteger {
+    type Output = ArrInteger;
     fn rem(self, rhs: Self) -> Self::Output {
         let (_, result) = self.over(&rhs);
         result

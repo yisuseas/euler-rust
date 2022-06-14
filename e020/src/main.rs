@@ -5,10 +5,10 @@
 //! 10! is 3 + 6 + 2 + 8 + 8 + 0 + 0 = 27.
 //! Find the sum of the digits in the number 100!
 
-use utils::big::BigInteger;
+use utils::big::ArrInteger;
 
-fn factorial(n: BigInteger) -> BigInteger {
-    let one = BigInteger::from(1);
+fn factorial(n: ArrInteger) -> ArrInteger {
+    let one = ArrInteger::from(1);
     if n == one {
         return one;
     }
@@ -16,7 +16,7 @@ fn factorial(n: BigInteger) -> BigInteger {
 }
 
 fn answer() -> u64 {
-    let n = BigInteger::from(100);
+    let n = ArrInteger::from(100);
     let n_fac = factorial(n);
     println!("{}! =\n{}", &n, &n_fac);
 
