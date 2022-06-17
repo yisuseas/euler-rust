@@ -1,10 +1,12 @@
 use super::*;
 
+
 #[derive(Clone, Copy)]
 struct TriangleVertex {
     value: u8,
     vertex: Vertex,
 }
+
 
 /// Structure for Triangles
 pub struct Triangle {

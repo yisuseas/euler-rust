@@ -16,14 +16,14 @@
 use utils::primes;
 
 fn answer() -> u32 {
-    let target: u16 = 500;
+    let target: u32 = 500;
     let mut last_triangle: u32 = 0;
 
     let mut term: u32 = 1;
     loop {
         let triangle = last_triangle + term;
 
-        let divisors: u16 = primes::prime_factors_hm(triangle as usize)
+        let divisors: u32 = primes::prime_factors_hm(triangle as usize)
                            .values()
                            .fold(1, |d, &exp| d * (exp + 1));
 

@@ -1,6 +1,8 @@
 //! Prime number related functions
 
+
 use std::collections::HashMap;
+
 
 pub fn primes_under(n: usize) -> Vec<usize> {
     let mut primes: Vec<usize> = Vec::new();
@@ -58,8 +60,8 @@ pub fn prime_factors_vec(n: usize) -> Vec<usize> {
 }
 
 
-pub fn prime_factors_hm(n: usize) -> HashMap<usize, u16> {
-    let mut pf: HashMap<usize, u16> = HashMap::new();
+pub fn prime_factors_hm(n: usize) -> HashMap<usize, u32> {
+    let mut pf: HashMap<usize, u32> = HashMap::new();
     
     let primes_under_n = primes_under(
         (n as f64).sqrt() as usize + 2
@@ -69,9 +71,9 @@ pub fn prime_factors_hm(n: usize) -> HashMap<usize, u16> {
     for &prime in &primes_under_n {
         loop {
             if quotient % prime == 0 {
-                let exp: &mut u16 = pf
+                let exp: &mut u32 = pf
                                    .entry(prime)
-                                   .or_insert(0u16);
+                                   .or_insert(0u32);
                 quotient /= prime;
                 *exp += 1;
             } else {

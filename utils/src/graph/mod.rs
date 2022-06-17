@@ -1,6 +1,7 @@
 use std::collections::{HashMap, HashSet};
 use rand::distributions::{Distribution, Uniform};
 
+
 pub fn display_number(number: u8, enfasis: bool) -> String {
     format!(
         "{}{}{}{}",
@@ -10,6 +11,7 @@ pub fn display_number(number: u8, enfasis: bool) -> String {
         if enfasis {"\x1b[0m"} else {""},
     )
 }
+
 
 /// Vertex Struct
 /// 
@@ -160,6 +162,7 @@ impl Graph {
         g
     }
 }
+
 
 mod graph_constructors;
 mod dijkstra;
