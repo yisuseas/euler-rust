@@ -1,7 +1,7 @@
 use super::*;
 
 impl Graph {
-    /// https://miro.medium.com/max/1400/1*t8fjmUG8aIURU_bz8MMqOQ.png
+    /// <img src="https://miro.medium.com/max/1400/1*t8fjmUG8aIURU_bz8MMqOQ.png" height="200">
     pub fn test_graph() -> Graph {
         let a = Vertex::new_with_id('a');
         let b = Vertex::new_with_id('b');
