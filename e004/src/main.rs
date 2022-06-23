@@ -19,7 +19,7 @@ fn answer() -> u64 {
         while number_2 >= start {
             let product = number_1 * number_2;
             if product > largest_palindrome {
-                if misc::is_palindromic(product) {
+                if misc::is_palindromic(&product) {
                     largest_palindrome = product;
                 }
             }

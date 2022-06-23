@@ -55,19 +55,16 @@ pub fn digits_of<T: std::fmt::Display>(n: T) -> Vec<u8> {
 }
 
 
-/// Returns true if the given x is palindromic.
-pub fn is_palindromic<T: std::fmt::Display>(x: T) -> bool {
-    let digits = digits_of(x);
-    let mut l_idx = 0;
-    let mut r_idx = digits.len() - 1;
-    while l_idx < r_idx {
-        if digits[l_idx] != digits[r_idx] {
+/// Returns true if the given input is palindromic.
+pub fn is_palindromic<T: std::fmt::Display>(input: &T) -> bool {
+    let s = input.to_string();
+    let mut regular = s.chars();
+    let mut inverse = s.chars().rev();
+    for _ in 0..s.len() / 2 {
+        if regular.next() != inverse.next() {
             return false;
         }
-        l_idx += 1;
-        r_idx -= 1;
     }
-
     true
 }
 
@@ -219,9 +216,11 @@ mod tests {
     }
 
     #[test]
-    fn is_palindromic() {
-        assert_eq!(true, misc::is_palindromic(012321));
-        assert_eq!(false, misc::is_palindromic(12301));
+    fn palindromic() {
+        assert_eq!(true, misc::is_palindromic(&012321));
+        assert_eq!(false, misc::is_palindromic(&12301));
+        assert_eq!(true, misc::is_palindromic(&"tacocat"));
+        assert_eq!(false, misc::is_palindromic(&"tacoCat"));
     }
 
     #[test]
