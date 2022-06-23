@@ -1,5 +1,12 @@
 use crate::misc;
 
+/// Struct of 200 digits, taking 1byte each.
+/// 
+/// If a bigger number is needed, use StrArray
+/// 
+/// Also implements the following operators:
+/// 
+/// +, +=, -, -=, *, *=, /, /=
 #[derive(Debug, PartialEq, Eq, Clone, Copy, Hash)]
 pub struct ArrInteger {
     pub digits: [u8; 200]
@@ -7,10 +14,14 @@ pub struct ArrInteger {
 
 
 impl ArrInteger {
+    /// Will return a number with value of 0;
     pub fn new() -> ArrInteger {
         ArrInteger { digits: [0; 200] }
     }
 
+    /// Parse from any integer or string of digits.
+    /// 
+    /// Will panic if ther are more than 200 digits on the input
     pub fn from<T: std::fmt::Display>(input: T) -> ArrInteger {
         let i_chars = input.to_string();
         let mut i_chars = i_chars.chars().rev();
@@ -25,6 +36,9 @@ impl ArrInteger {
         ArrInteger { digits }
     }
 
+    /// Make a number from a slice of digits ( have to be u8 )
+    /// 
+    /// Will panic if more than 200 digits are given
     pub fn from_digits(input: &[u8]) -> ArrInteger {
         let mut digits = [0; 200];
         input.iter().rev()

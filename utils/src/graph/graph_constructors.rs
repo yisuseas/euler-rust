@@ -136,12 +136,13 @@ impl Graph {
         ])
     }
 
-    ///    R           R
-    ///    3           a
-    ///   7 4         b c
-    ///  2 4 6       d e f
-    /// 8 5 9 3     g h i j
-    ///    G           G
+
+    /// Root<br>
+    /// a: 3,<br>
+    /// b: 7, c: 4,<br>
+    /// d: 2, e: 4, f: 6,<br>
+    /// g: 8, h: 5, i: 9, j: 3<br>
+    /// Goal<br>
     pub fn small_triangle() -> Graph {
         let root = Vertex::new_with_id('R');
         let goal = Vertex::new_with_id('G');

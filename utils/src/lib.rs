@@ -1,4 +1,4 @@
-// Bring modules into scope
+//! Utility functions and structs
 
 pub mod misc;
 pub mod primes;

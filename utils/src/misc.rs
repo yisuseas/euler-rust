@@ -2,16 +2,20 @@
 
 use std::collections::HashMap;
 
+
+/// takes a digit char, and returns it as an u8
 pub fn char_to_u8(c: char) -> u8 {
     c as u8 - 48
 }
 
 
+/// takes a digit u8, and returns it as a char
 pub fn u8_to_char(n: u8) -> char {
     (n + 48) as char
 }
 
 
+/// The ordinal representation of a given integer
 pub fn ordinal_number(n: usize) -> String {
     let ending = match n % 10 {
         1 => "st",
@@ -23,6 +27,10 @@ pub fn ordinal_number(n: usize) -> String {
 }
 
 
+/// The nth term of the fibonacci sequence
+/// Given:
+/// 1st = 1,
+/// 2nd = 2,
 pub fn fibonacci_term(term: u64) -> u64 {
     if term < 1 {
         return 0;
@@ -35,6 +43,7 @@ pub fn fibonacci_term(term: u64) -> u64 {
 }
 
 
+/// Returns a vector of the digits of a number, as u8 values
 pub fn digits_of<T: std::fmt::Display>(n: T) -> Vec<u8> {
     let digits_str = n.to_string();
     let mut digits_vec = Vec::new();
@@ -46,6 +55,7 @@ pub fn digits_of<T: std::fmt::Display>(n: T) -> Vec<u8> {
 }
 
 
+/// Returns true if the given x is palindromic.
 pub fn is_palindromic<T: std::fmt::Display>(x: T) -> bool {
     let digits = digits_of(x);
     let mut l_idx = 0;
@@ -62,6 +72,7 @@ pub fn is_palindromic<T: std::fmt::Display>(x: T) -> bool {
 }
 
 
+/// Returns a vector of the proper divisors of a given integer
 pub fn proper_divisors_of(n: usize) -> Vec<usize> {
     // Find half of the divisors
     let mut first_half = Vec::new();
@@ -82,6 +93,9 @@ pub fn proper_divisors_of(n: usize) -> Vec<usize> {
 }
 
 
+/// Will return a String containing the written representation of a nuymber.
+/// 
+/// Based on british usage.
 pub fn written_out(n: usize) -> String {
     let cardinals: HashMap<usize, &str> = HashMap::from([
         (0, "zero"),

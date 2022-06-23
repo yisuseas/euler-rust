@@ -64,6 +64,7 @@ impl StrInteger {
         )
     }
 
+    /// Will panic if the substraction is negative
     pub fn minus(&self, other: &StrInteger) -> StrInteger {
         if self < other {
             panic!("Substraction would result in a negative number");

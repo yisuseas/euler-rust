@@ -1,3 +1,6 @@
+//! Contains Structs usefull to work with Graph Theory
+
+
 use std::collections::{HashMap, HashSet};
 use rand::distributions::{Distribution, Uniform};
 
@@ -15,6 +18,7 @@ pub fn display_number(number: u8, enfasis: bool) -> String {
 
 /// Vertex Struct
 /// 
+/// All vertices have an unique id
 #[derive(Clone, Copy, PartialEq, Eq, Hash)]
 pub struct Vertex {
     id: [char; 8],
@@ -28,6 +32,7 @@ impl std::fmt::Debug for Vertex {
 }
 
 impl Vertex {
+    /// Will return a new Vertex with a randomly generated id
     pub fn new() -> Vertex {
         let between = Uniform::from('A'..'Z');
         let mut rng = rand::thread_rng();
@@ -39,10 +44,12 @@ impl Vertex {
         Vertex { id: char_list }
     }
 
+    /// Will return a new Vertex with all characters initalized as the given __ch__
     pub fn new_with_id(ch: char) -> Vertex {
         Vertex { id: [ch; 8] }
     }
 
+    /// Will return an Edge between self and a given Vertex, with a given weight.
     pub fn to(&self, other: Vertex, weight: u8) -> Edge {
         Edge {
             from: *self,
@@ -55,6 +62,10 @@ impl Vertex {
 
 /// Edge Struct
 /// 
+/// Contains two Vertices and a weight
+/// 
+/// All Edges are directional, for adirectional graphs consider using
+/// inversed edges
 #[derive(Clone, Copy, PartialEq, Eq, Hash)]
 pub struct Edge {
     from: Vertex,
@@ -69,10 +80,12 @@ impl std::fmt::Debug for Edge {
 }
 
 impl Edge {
+    /// Getter for the __to__ value of the Edge
     pub fn tail(&self) -> Vertex {
         self.to
     }
 
+    /// Will return a new inversed edge.
     fn inverse(e: &Edge) -> Edge {
         Edge {
             from: e.to,
@@ -81,6 +94,9 @@ impl Edge {
         }
     }
 
+    /// Will return a copy of the Edge with a weight of the maximum possible value - the original weight
+    /// 
+    /// Usefull for finding the longest path
     pub fn copy_big_weight(&self) -> Edge {
         Edge { from: self.from, to: self.to, weight: u8::MAX - self.weight }
     }
@@ -89,6 +105,10 @@ impl Edge {
 
 /// Graph Struct
 /// 
+/// Contains a HashMap with key: Vertex and value: a HashSet of the Edges that start from it.
+/// 
+/// Will also store the vertices to use as root and goal,
+/// Note that they also need to be in the HashMap, even if not connected
 #[derive(Clone, PartialEq, Eq)]
 pub struct Graph {
     pub graph_hm: HashMap<Vertex, HashSet<Edge>>,
@@ -111,6 +131,8 @@ impl std::fmt::Debug for Graph {
 }
 
 impl Graph {
+    /// Will make a graph, using the first Vertex given as the root
+    /// and the last one as the goal
     pub fn from(input: &[(Vertex, &[(Vertex, u8)])]) -> Graph {
         let mut ghm = HashMap::new();
         for &(parent, neighbors_slice) in input {
@@ -127,7 +149,7 @@ impl Graph {
         }
     }
 
-
+    /// Usefull for making adirectional graphs
     pub fn bidirect_edges(&mut self) {
         // Set the inverse HashMap
         let mut inv_hm: HashMap<Vertex, HashSet<Edge>> = HashMap::new();
@@ -154,7 +176,7 @@ impl Graph {
         }
     }
 
-
+    /// Usefull for making adirectional graphs
     pub fn bidirected_from(input: &[(Vertex, &[(Vertex, u8)])]) -> Graph {
         let mut g = Graph::from(input);
         g.bidirect_edges();

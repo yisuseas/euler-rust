@@ -5,6 +5,19 @@ impl Graph {
     /// ### Returns: 
     /// The path's lenght and a vector containing the vertices
     /// of said path in order
+    /// ### Algorithm:
+    /// 1. Assign the max distance posible for all nodes to the root
+    /// 2. Add all nodes to a priority queue
+    /// 3. Set the distance from the root node to itself to 0
+    /// 4. Loop on the queue as long as its not empty:
+    ///     1. Choose the node with the minimum distance from root
+    ///     2. Remove the current chosen node from the queue, will remove root on first iteration
+    ///     3. If the current chosen node is the goal, then return it.
+    ///     4. Iterate on each child of the current node:
+    ///         1. If child is not in the queue, skip this iteration
+    ///         2. Get the child's distance to root with this path
+    ///         3. If its shorter than the one stored, change that.
+    /// 5. If the queue is empty, the goal was not found.
     pub fn dijkstra(&self) -> (u16, Vec<Vertex>) {
         let mut dis_from_root = HashMap::new();
         let mut best_parent = HashMap::new();

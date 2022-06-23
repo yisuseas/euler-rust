@@ -4,6 +4,9 @@
 use std::collections::HashMap;
 
 
+/// Returns a vector of all primes under a given non-inclusive limit.
+/// 
+/// Uses Sieve of Eratostenes
 pub fn primes_under(n: usize) -> Vec<usize> {
     let mut primes: Vec<usize> = Vec::new();
 
@@ -34,6 +37,9 @@ pub fn primes_under(n: usize) -> Vec<usize> {
 }
 
 
+/// Returns a vector of the prime factors of a given integer,
+/// 
+/// Repeating factors, will appear as many times as necesary
 pub fn prime_factors_vec(n: usize) -> Vec<usize> {
     let mut prime_factors: Vec<usize> = Vec::new();
     let primes_under_n = primes_under((n as f64).sqrt() as usize + 2);
@@ -60,6 +66,8 @@ pub fn prime_factors_vec(n: usize) -> Vec<usize> {
 }
 
 
+/// Returns a HashMap with the prime factors of a given number as keys,
+/// and their exponent as values.
 pub fn prime_factors_hm(n: usize) -> HashMap<usize, u32> {
     let mut pf: HashMap<usize, u32> = HashMap::new();
     
@@ -92,7 +100,8 @@ pub fn prime_factors_hm(n: usize) -> HashMap<usize, u32> {
 }
 
 
-pub fn least_common_multiple(numbers: &Vec<usize>) -> usize {
+/// Returns the least common multiple of a Vector of integers
+pub fn least_common_multiple(numbers: &[usize]) -> usize {
     // Find the biggest number
     let mut biggest: usize = 0;
     for n in numbers {
@@ -105,7 +114,7 @@ pub fn least_common_multiple(numbers: &Vec<usize>) -> usize {
     // Divide all numbers by each off the primes, 
     // and storing the primes that divide at least one
     // number untill all of them are 1
-    let mut quotients = numbers.clone();
+    let mut quotients: Vec<usize> = numbers.iter().map(|&n| n).collect();
     let mut prime_factors: Vec<usize> = Vec::new();
 
     for prime in prime_vec {

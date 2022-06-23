@@ -1,6 +1,8 @@
 use super::*;
 
 
+/// Vertex in a triangle have a weight assigned and all Edge's directing to them
+/// will have that weight.
 #[derive(Clone, Copy)]
 struct TriangleVertex {
     value: u8,
@@ -9,6 +11,10 @@ struct TriangleVertex {
 
 
 /// Structure for Triangles
+/// 
+/// Contains a Vector of the Vertices to use
+/// (only works if the len() of this is a triangle number)
+/// and a directed graph.
 pub struct Triangle {
     vertex_vec: Vec<TriangleVertex>,
     graph: Graph,
@@ -52,6 +58,7 @@ impl Triangle {
         (row * (row + 1) / 2) + col
     }
 
+    /// Will use the given numbers to make a triangle of them, the first being the top
     pub fn from(number_slice: &[u8]) -> Triangle {
         // Calculate the base of the triangle
         let base = ((((8 * number_slice.len() + 1) as f64).sqrt()) as usize - 1) / 2;
@@ -98,6 +105,7 @@ impl Triangle {
         Triangle { vertex_vec, graph, base }
     }
 
+    /// Will print the shortest path, and return its value.
     pub fn shortest_path(&self) -> u16 {
         let (dist, path) = self.graph.dijkstra();
         let path_set: HashSet<_> = HashSet::from_iter(path.iter().copied());
@@ -115,6 +123,7 @@ impl Triangle {
         dist
     }
 
+    /// Will print the longest path, and return its value.
     pub fn longest_path(&self) -> u16 {
         // Make alt graph
         let mut alt_graph_hm = HashMap::new();

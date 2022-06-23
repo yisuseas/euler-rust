@@ -1,10 +1,18 @@
 //! Rational numbers related functions and struct
 
-
 use std::collections::HashMap;
 use super::primes;
 
 
+/// Struct containing a numerator and denominator, both u64
+/// 
+/// PartialEq is made comparing both num and den.
+/// two equivalent fractions in value will compare as diferent.
+/// PartialOrd is evaluated from their decimal representation.
+/// 
+/// Also implements the following operators:
+/// 
+/// +, +=, -, -=, *, *=, /, /=
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct Fraction {
     pub num: u64,
@@ -23,15 +31,21 @@ impl Fraction {
         Fraction { num, den }
     }
 
+    /// Unit fraction: 1 / den
     pub fn unit(den: u64) -> Fraction {
         Fraction { num: 1, den }
     }
 
+    /// Decimal value of the fraction as f64.
+    /// 
+    /// Use with caution, susceptible to floating point errors
     pub fn decimal(&self) -> f64 {
         ((1_000_000.0 * self.num as f64) / self.den as f64) / 1_000_000.0
     }
 
     /// Returns an array of the first 100 decimal digits
+    /// 
+    /// Ignores the whole part if that exists
     pub fn decimal_digits(&self) -> [u8; 100] {
         let mut digit_list = [0; 100];
         let mut rem = self.num % self.den;
@@ -106,6 +120,8 @@ impl Fraction {
     }
 
     /// Returns as a new fraction the simplified version of self
+    /// 
+    /// It makes a deep copy, since its only two u64 values
     pub fn simplified(&self) -> Fraction {
         let mut s = self.clone();
         s.simplify();

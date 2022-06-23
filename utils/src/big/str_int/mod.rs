@@ -1,3 +1,17 @@
+/// Struct containing a String as a representation of a number
+/// 
+/// Since String's are handled on heap, and cannot derive the Copy Trait, 
+/// StrInteger will perform slower than ArrInteger.
+/// 
+/// Only use if there's a need for more than 200 digits
+/// 
+/// Also implements the following operators:
+/// 
+/// +,  +=,  -,  -=,  *,  *=,  /,  /=
+/// 
+/// Note that all of these will consume their arguments.
+/// their dedicated functions might be more useful to work with references.
+/// Otherwise use deep clones
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct StrInteger {
     n_str: String,
@@ -38,6 +52,7 @@ impl StrInteger {
         StrInteger { n_str: String::from("0") }
     }
 
+    /// The ammount of digits of the number, not to be confused with an array of them
     pub fn digits(&self) -> usize {
         self.n_str.len()
     }
