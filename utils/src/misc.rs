@@ -90,6 +90,27 @@ pub fn proper_divisors_of(n: usize) -> Vec<usize> {
 }
 
 
+/// Returns a Vector of Permutations of the members
+pub fn permutations<T: Copy>(members: &[T]) -> Vec<Vec<T>> {
+    if members.len() == 1 {
+        return vec![vec![members[0]]];
+    }
+    let mut perms = Vec::new();
+    for idx in 0..members.len() {
+        let first = members[idx];
+        let remainder: Vec<T> = members
+            .iter()
+            .enumerate()
+            .filter(|(j, _)| *j != idx)
+            .map(|(_, &item)| item).collect();
+        for p in permutations(&remainder) {
+            perms.push([vec![first], p].concat());
+        }
+    }
+    perms
+}
+
+
 /// Will return a String containing the written representation of a nuymber.
 /// 
 /// Based on british usage.
@@ -233,6 +254,19 @@ mod tests {
             vec![1, 2, 4, 71, 142],
             misc::proper_divisors_of(284)
         );
+    }
+
+    #[test]
+    fn permutations() {
+        let a = vec![
+            vec![1, 2, 3],
+            vec![1, 3, 2],
+            vec![2, 1, 3],
+            vec![2, 3, 1],
+            vec![3, 1, 2],
+            vec![3, 2, 1]
+        ];
+        assert_eq!(a, misc::permutations(&[1, 2, 3]))
     }
 
     #[test]
