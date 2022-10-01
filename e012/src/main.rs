@@ -16,46 +16,49 @@
 use utils::primes;
 
 fn answer() -> u32 {
-    let target: u32 = 500;
-    let mut last_triangle: u32 = 0;
+  let target: u32 = 500;
+  let mut last_triangle: u32 = 0;
 
-    let mut term: u32 = 1;
-    loop {
-        let triangle = last_triangle + term;
+  let mut term: u32 = 1;
+  loop {
+    let triangle = last_triangle + term;
 
-        let divisors: u32 = primes::prime_factors_hm(triangle as usize)
-                           .values()
-                           .fold(1, |d, &exp| d * (exp + 1));
+    let divisors: u32 = primes::prime_factors_hm(triangle as usize)
+      .values()
+      .fold(1, |d, &exp| d * (exp + 1));
 
-        // println!("{} -> {}", &triangle, &divisors);
-        last_triangle = triangle;
-        if divisors > target {
-            break;
-        } else {
-            term += 1;
-        }
+    // println!("{} -> {}", &triangle, &divisors);
+    last_triangle = triangle;
+    if divisors > target {
+      break;
+    } else {
+      term += 1;
     }
+  }
 
-    println!("What is the value of the first triangle number to have over {} divisors?", target);
-    println!("term: {}    value: {}", term, last_triangle);
+  println!(
+    "What is the value of the first triangle number to have over {} divisors?",
+    target
+  );
+  println!("term: {}    value: {}", term, last_triangle);
 
-    last_triangle
+  last_triangle
 }
 
 fn main() {
-    let a = answer();
-    println!("\nAnswer: {}\n", &a);
+  let a = answer();
+  println!("\nAnswer: {}\n", &a);
 }
 
 ////////////////////////////////////////////////////////////
 
 #[cfg(test)]
 mod e012_tests {
-    use super::*;
+  use super::*;
 
-    #[test]
-    fn check_answer() {
-        let expected = 76576500;
-        assert_eq!(expected, answer());
-    }
+  #[test]
+  fn check_answer() {
+    let expected = 76576500;
+    assert_eq!(expected, answer());
+  }
 }

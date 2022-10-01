@@ -13,72 +13,72 @@
 use std::collections::HashMap;
 
 struct Collatz {
-    known: HashMap<u64, u64>
+  known: HashMap<u64, u64>,
 }
 
 impl Collatz {
-    fn new() -> Collatz {
-        Collatz {
-            known: HashMap::from([(1, 1)])
-        }
+  fn new() -> Collatz {
+    Collatz {
+      known: HashMap::from([(1, 1)]),
+    }
+  }
+
+  fn count_chain(&mut self, n: u64) -> u64 {
+    if self.known.contains_key(&n) {
+      return self.known[&n];
     }
 
-    fn count_chain(&mut self, n: u64) -> u64 {
-        if self.known.contains_key(&n) {
-            return self.known[&n];
-        }
-    
-        if n % 2 == 0 {
-            let value = 1 + self.count_chain(n / 2);
-            self.known.insert(n, value);
-        } else {
-            // 3n + 1 will be even, so we count both
-            let value = 2 + self.count_chain((3 * n + 1) / 2);
-            self.known.insert(n, value);
-        }
-    
-        self.known[&n]
+    if n % 2 == 0 {
+      let value = 1 + self.count_chain(n / 2);
+      self.known.insert(n, value);
+    } else {
+      // 3n + 1 will be even, so we count both
+      let value = 2 + self.count_chain((3 * n + 1) / 2);
+      self.known.insert(n, value);
     }
+
+    self.known[&n]
+  }
 }
 
 fn answer() -> u64 {
-    let target = 1_000_000;
-    let mut longest_chain = 0;
-    let mut answer = 0;
+  let target = 1_000_000;
+  let mut longest_chain = 0;
+  let mut answer = 0;
 
-    let mut c = Collatz::new();
+  let mut c = Collatz::new();
 
-    // All the first half can be ignored
-    // because we will calculate it in the even numbers of the second
-    for starter in target/2..target {
-        let this_chain = c.count_chain(starter);
-        if this_chain > longest_chain {
-            longest_chain = this_chain;
-            answer = starter;
-        }
+  // All the first half can be ignored
+  // because we will calculate it in the even numbers of the second
+  for starter in target / 2..target {
+    let this_chain = c.count_chain(starter);
+    if this_chain > longest_chain {
+      longest_chain = this_chain;
+      answer = starter;
     }
+  }
 
-    println!("Find the greatest Collatz Sequence");
-    println!("for starting numbers under {}.", target);
-    println!("Which number produces it?");
+  println!("Find the greatest Collatz Sequence");
+  println!("for starting numbers under {}.", target);
+  println!("Which number produces it?");
 
-    answer
+  answer
 }
 
 fn main() {
-    let a = answer();
-    println!("\nAnswer: {}\n", &a);
+  let a = answer();
+  println!("\nAnswer: {}\n", &a);
 }
 
 ////////////////////////////////////////////////////////////
 
 #[cfg(test)]
 mod e014_tests {
-    use super::*;
+  use super::*;
 
-    #[test]
-    fn check_answer() {
-        let expected = 837799;
-        assert_eq!(expected, answer());
-    }
+  #[test]
+  fn check_answer() {
+    let expected = 837799;
+    assert_eq!(expected, answer());
+  }
 }

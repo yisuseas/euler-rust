@@ -30,49 +30,50 @@
 // The max possible value of the sum of the numbers in a path of the
 // second triangle is 99 x 15 = 1 485, which fits in a u16
 
-use utils::{misc, graph};
+use utils::{graph, misc};
 
 fn int_str_value(s: &str) -> u8 {
-    s.chars()
-        .rev()
-        .enumerate()
-        .map(|(idx, c)| {
-            misc::char_to_u8(c) *
-            10u8.pow(idx as u32)
-        })
-        .sum()
+  s.chars()
+    .rev()
+    .enumerate()
+    .map(|(idx, c)| misc::char_to_u8(c) * 10u8.pow(idx as u32))
+    .sum()
 }
 
 fn answer(triangle: &str) -> u16 {
-    let numbers: Vec<u8> = triangle.lines()
-                          .flat_map(|l| l.split(" "))
-                          .map(|n| int_str_value(n))
-                          .collect();
-    let t = graph::Triangle::from(&numbers);
-    println!("Find the max possible value of the sum of the numbers in a path of the triangle:");
+  let numbers: Vec<u8> = triangle
+    .lines()
+    .flat_map(|l| l.split(" "))
+    .map(|n| int_str_value(n))
+    .collect();
+  let t = graph::Triangle::from(&numbers);
+  println!("Find the max possible value of the sum of the numbers in a path of the triangle:");
 
-    t.longest_path()
+  t.longest_path()
 }
 
 fn main() {
-    let triangle = {
-        let path = "./e018/triangles/big_triangle.txt";
-        std::fs::read_to_string(path).expect("Couldn't open the file")
-    };
-    let a = answer(&triangle);
-    println!("\nAnswer: {}\n", &a);
+  let triangle = {
+    let path = "./e018/triangles/big_triangle.txt";
+    std::fs::read_to_string(path).expect("Couldn't open the file")
+  };
+  let a = answer(&triangle);
+  println!("\nAnswer: {}\n", &a);
 }
 
 ////////////////////////////////////////////////////////////
 
 #[cfg(test)]
 mod e018_tests {
-    use super::*;
+  use super::*;
 
-    #[test]
-    fn check_answer() {
-        let expected = 1074;
-        assert_eq!(expected, answer("75
+  #[test]
+  fn check_answer() {
+    let expected = 1074;
+    assert_eq!(
+      expected,
+      answer(
+        "75
 95 64
 17 47 82
 18 35 87 10
@@ -86,6 +87,8 @@ mod e018_tests {
 70 11 33 28 77 73 17 78 39 68 17 57
 91 71 52 38 17 14 91 43 58 50 27 29 48
 63 66 04 68 89 53 67 30 73 16 69 87 40 31
-04 62 98 27 23 09 70 98 73 93 38 53 60 04 23"));
-    }
+04 62 98 27 23 09 70 98 73 93 38 53 60 04 23"
+      )
+    );
+  }
 }

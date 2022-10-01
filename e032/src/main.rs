@@ -13,53 +13,52 @@ use std::collections::HashSet;
 use utils::misc;
 
 fn answer() -> u64 {
-    let mut digit_options = Vec::new();
-    for n in 1..=9 {
-        digit_options.push(n);
+  let mut digit_options = Vec::new();
+  for n in 1..=9 {
+    digit_options.push(n);
+  }
+
+  let mut pandigital_prod = HashSet::new();
+
+  for a in 1..100 {
+    for b in 1..10_000 / a {
+      // We only really want 4 digit products
+      // made from either 1 x 4 digit factors or
+      // 2 x 3 digit factors
+      let c = a * b;
+      let mut digits =
+        [misc::digits_of(a), misc::digits_of(b), misc::digits_of(c)].concat();
+      digits.sort();
+      if digits == digit_options {
+        pandigital_prod.insert(c);
+      }
     }
+  }
 
-    let mut pandigital_prod = HashSet::new();
+  println!(
+    "Find the sum of all products whose multiplicand/multiplier/product"
+  );
+  println!("identity can be written as a 1 through 9 pandigital.");
 
-    for a in 1..100 {
-        for b in 1..10_000 / a {
-            // We only really want 4 digit products
-            // made from either 1 x 4 digit factors or
-            // 2 x 3 digit factors
-            let c = a * b;
-            let mut digits = [
-                misc::digits_of(a),
-                misc::digits_of(b),
-                misc::digits_of(c)
-            ].concat();
-            digits.sort();
-            if digits == digit_options {
-                pandigital_prod.insert(c);
-            }
-        }
-    }
+  println!("\nProducts: {:?}", &pandigital_prod);
 
-    println!("Find the sum of all products whose multiplicand/multiplier/product");
-    println!("identity can be written as a 1 through 9 pandigital.");
-
-    println!("\nProducts: {:?}", &pandigital_prod);
-
-    pandigital_prod.iter().sum()
+  pandigital_prod.iter().sum()
 }
 
 fn main() {
-    let a = answer();
-    println!("\nAnswer: {}\n", &a);
+  let a = answer();
+  println!("\nAnswer: {}\n", &a);
 }
 
 ////////////////////////////////////////////////////////////
 
 #[cfg(test)]
 mod e032_tests {
-    use super::*;
+  use super::*;
 
-    #[test]
-    fn check_answer() {
-        let expected = 45_228;
-        assert_eq!(expected, answer());
-    }
+  #[test]
+  fn check_answer() {
+    let expected = 45_228;
+    assert_eq!(expected, answer());
+  }
 }

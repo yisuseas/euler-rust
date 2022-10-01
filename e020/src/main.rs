@@ -8,37 +8,38 @@
 use utils::big::ArrInteger;
 
 fn factorial(n: ArrInteger) -> ArrInteger {
-    let one = ArrInteger::from(1);
-    if n == one {
-        return one;
-    }
-    n * factorial(n - one)
+  let one = ArrInteger::from(1);
+  if n == one {
+    return one;
+  }
+  n * factorial(n - one)
 }
 
 fn answer() -> u64 {
-    let n = ArrInteger::from(100);
-    let n_fac = factorial(n);
-    println!("{}! =\n{}", &n, &n_fac);
+  let n = ArrInteger::from(100);
+  let n_fac = factorial(n);
+  println!("{}! =\n{}", &n, &n_fac);
 
-    n_fac.digits
-         .iter()
-         .fold(0, |sum, &digit| sum + digit as u64)
+  n_fac
+    .digits
+    .iter()
+    .fold(0, |sum, &digit| sum + digit as u64)
 }
 
 fn main() {
-    let a = answer();
-    println!("\nAnswer: {}\n", &a);
+  let a = answer();
+  println!("\nAnswer: {}\n", &a);
 }
 
 ////////////////////////////////////////////////////////////
 
 #[cfg(test)]
 mod e020_tests {
-    use super::*;
+  use super::*;
 
-    #[test]
-    fn check_answer() {
-        let expected = 648;
-        assert_eq!(expected, answer());
-    }
+  #[test]
+  fn check_answer() {
+    let expected = 648;
+    assert_eq!(expected, answer());
+  }
 }

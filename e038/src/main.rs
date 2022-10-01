@@ -12,60 +12,60 @@
 use utils::misc;
 
 fn concatenated(seed: u64, n: u64) -> u64 {
-    let mut s = String::new();
-    for mult in 1..=n {
-        s.push_str(&(seed * mult).to_string());
-    }
-    s.parse().unwrap()
+  let mut s = String::new();
+  for mult in 1..=n {
+    s.push_str(&(seed * mult).to_string());
+  }
+  s.parse().unwrap()
 }
 
 fn is_pandigital(n: u64) -> bool {
-    let mut digits = misc::digits_of(n);
-    digits.sort();
-    digits == [1, 2, 3, 4, 5, 6, 7, 8, 9]
+  let mut digits = misc::digits_of(n);
+  digits.sort();
+  digits == [1, 2, 3, 4, 5, 6, 7, 8, 9]
 }
 
 fn answer() -> u64 {
-    println!("What is the largest 1 to 9 pandigital 9-digit number that can be");
-    println!("formed as the concatenated product of an integer with (1,2, ... , n) where n > 1?\n");
+  println!("What is the largest 1 to 9 pandigital 9-digit number that can be");
+  println!("formed as the concatenated product of an integer with (1,2, ... , n) where n > 1?\n");
 
-    // Max seed would be a 4 digit number multiplied by (1-2)
-    // n = 2    max_seed = 9_999
-    // Min seed would be a 1 digit number multiplied by (1-9)
-    // n = 9    min_seed = 1
-    let mut largest_pandigital = 0;
-    for seed in 1..=9_999 {
-        for n in 2..9 {
-            let con_prod = concatenated(seed, n);
-            if con_prod >= 1_000_000_000 {
-                break;
-            }
-            if is_pandigital(con_prod) {
-                println!("{seed} * (1-{n}) -> {con_prod}");
-                if con_prod > largest_pandigital {
-                    largest_pandigital = con_prod;
-                }
-            }
+  // Max seed would be a 4 digit number multiplied by (1-2)
+  // n = 2    max_seed = 9_999
+  // Min seed would be a 1 digit number multiplied by (1-9)
+  // n = 9    min_seed = 1
+  let mut largest_pandigital = 0;
+  for seed in 1..=9_999 {
+    for n in 2..9 {
+      let con_prod = concatenated(seed, n);
+      if con_prod >= 1_000_000_000 {
+        break;
+      }
+      if is_pandigital(con_prod) {
+        println!("{seed} * (1-{n}) -> {con_prod}");
+        if con_prod > largest_pandigital {
+          largest_pandigital = con_prod;
         }
+      }
     }
+  }
 
-    largest_pandigital
+  largest_pandigital
 }
 
 fn main() {
-    let a = answer();
-    println!("\nAnswer: {}\n", &a);
+  let a = answer();
+  println!("\nAnswer: {}\n", &a);
 }
 
 ////////////////////////////////////////////////////////////
 
 #[cfg(test)]
 mod e038_tests {
-    use super::*;
+  use super::*;
 
-    #[test]
-    fn check_answer() {
-        let expected = 932718654;
-        assert_eq!(expected, answer());
-    }
+  #[test]
+  fn check_answer() {
+    let expected = 932718654;
+    assert_eq!(expected, answer());
+  }
 }

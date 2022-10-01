@@ -12,54 +12,56 @@
 use utils::misc;
 
 fn sum_pow_digits(n: u64, exp: u32) -> u64 {
-    // max pos value = 9^exp
-    misc::digits_of(n)
-        .iter()
-        .fold(0, |sum, &d|
-            sum + (d as u64).pow(exp))
+  // max pos value = 9^exp
+  misc::digits_of(n)
+    .iter()
+    .fold(0, |sum, &d| sum + (d as u64).pow(exp))
 }
 
 fn answer() -> u64 {
-    let exp = 5;
-    // Find limit
-    let mut digits = 2;
-    loop {
-        let max_val = 9u64.pow(exp);
-        if 10u64.pow(digits) > max_val * (digits as u64) {
-            break;
-        }
-        digits += 1;
+  let exp = 5;
+  // Find limit
+  let mut digits = 2;
+  loop {
+    let max_val = 9u64.pow(exp);
+    if 10u64.pow(digits) > max_val * (digits as u64) {
+      break;
     }
-    // Find the numbers
-    let mut found_numbers = vec![];
-    for n in 10..10u64.pow(digits) {
-        if n == sum_pow_digits(n, exp) {
-            found_numbers.push(n);
-        }
+    digits += 1;
+  }
+  // Find the numbers
+  let mut found_numbers = vec![];
+  for n in 10..10u64.pow(digits) {
+    if n == sum_pow_digits(n, exp) {
+      found_numbers.push(n);
     }
+  }
 
-    println!("Find the sum of all the numbers that can be written as the");
-    println!("sum of {} powers of their digits.", misc::ordinal_number(exp as usize));
+  println!("Find the sum of all the numbers that can be written as the");
+  println!(
+    "sum of {} powers of their digits.",
+    misc::ordinal_number(exp as usize)
+  );
 
-    println!("\n{:?}", &found_numbers);
+  println!("\n{:?}", &found_numbers);
 
-    found_numbers.iter().sum()
+  found_numbers.iter().sum()
 }
 
 fn main() {
-    let a = answer();
-    println!("\nAnswer: {}\n", &a);
+  let a = answer();
+  println!("\nAnswer: {}\n", &a);
 }
 
 ////////////////////////////////////////////////////////////
 
 #[cfg(test)]
 mod e030_tests {
-    use super::*;
+  use super::*;
 
-    #[test]
-    fn check_answer() {
-        let expected = 443_839;
-        assert_eq!(expected, answer());
-    }
+  #[test]
+  fn check_answer() {
+    let expected = 443_839;
+    assert_eq!(expected, answer());
+  }
 }
