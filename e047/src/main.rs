@@ -18,7 +18,11 @@ fn distinct_pf(n: usize) -> usize {
   pf_hm.keys().len()
 }
 
-fn answer() -> u64 {
+fn answer() -> usize {
+  println!("Find the first four consecutive integers to");
+  println!("have four distinct prime factors each.");
+  println!("What is the first of these numbers?");
+
   let req_quantity = 4;
   let req_consecutive = 4;
 
@@ -31,12 +35,12 @@ fn answer() -> u64 {
       consecutive = 0
     }
     if consecutive == req_consecutive {
-      println!("{} - {}", n - (req_consecutive - 1), n);
-      break;
+      let answer = n - (req_consecutive - 1);
+      println!("\n{} - {}", answer, n);
+      return answer;
     }
     n += 1;
   }
-  0
 }
 
 fn main() {
@@ -52,7 +56,7 @@ mod e047_tests {
 
   #[test]
   fn check_answer() {
-    let expected = 1;
+    let expected = 134_043;
     assert_eq!(expected, answer());
   }
 }
