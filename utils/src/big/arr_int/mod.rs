@@ -102,5 +102,20 @@ mod tests {
     assert_eq!(ArrInteger::from(559970), a - b);
     assert_eq!(ArrInteger::from(239), a / b);
     assert_eq!(ArrInteger::from(908), a % b);
+    let mut x = ArrInteger::from(562319);
+    x += b;
+    assert_eq!(ArrInteger::from(564668), x);
+    let mut x = ArrInteger::from(562319);
+    x *= b;
+    assert_eq!(ArrInteger::from(1320887331), x);
+    let mut x = ArrInteger::from(562319);
+    x -= b;
+    assert_eq!(ArrInteger::from(559970), x);
+    let mut x = ArrInteger::from(562319);
+    x /= b;
+    assert_eq!(ArrInteger::from(239), x);
+    let mut x = ArrInteger::from(562319);
+    x %= b;
+    assert_eq!(ArrInteger::from(908), x);
   }
 }

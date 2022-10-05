@@ -131,10 +131,22 @@ impl std::ops::Mul for ArrInteger {
   }
 }
 
+impl std::ops::MulAssign for ArrInteger {
+  fn mul_assign(&mut self, rhs: Self) {
+    *self = self.times(&rhs)
+  }
+}
+
 impl std::ops::Sub for ArrInteger {
   type Output = ArrInteger;
   fn sub(self, rhs: Self) -> Self::Output {
     self.minus(&rhs)
+  }
+}
+
+impl std::ops::SubAssign for ArrInteger {
+  fn sub_assign(&mut self, rhs: Self) {
+    *self = self.minus(&rhs)
   }
 }
 
@@ -146,10 +158,24 @@ impl std::ops::Div for ArrInteger {
   }
 }
 
+impl std::ops::DivAssign for ArrInteger {
+  fn div_assign(&mut self, rhs: Self) {
+    let (result, _) = self.over(&rhs);
+    *self = result;
+  }
+}
+
 impl std::ops::Rem for ArrInteger {
   type Output = ArrInteger;
   fn rem(self, rhs: Self) -> Self::Output {
     let (_, result) = self.over(&rhs);
     result
+  }
+}
+
+impl std::ops::RemAssign for ArrInteger {
+  fn rem_assign(&mut self, rhs: Self) {
+    let (_, result) = self.over(&rhs);
+    *self = result;
   }
 }
