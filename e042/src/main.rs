@@ -53,7 +53,6 @@ fn answer(words_file: &str) -> usize {
     for word in words_file.replace("\"", "").split(",") {
         let value = word_value(word);
         if triangle_set.contains(&value) {
-            // println!("{} -> {}", word, value);
             triangle_words += 1;
         }
     }
@@ -77,12 +76,14 @@ fn main() {
 
 #[cfg(test)]
 mod e042_tests {
-      let path = "C:\\Users\\Yisus\\Documents\\RustPractice\\Euler\\euler-rust\\e042\\p042_words.txt";
     use super::*;
 
     #[test]
     fn check_answer() {
         let words_file = {
+            let mut path =
+                std::env::current_dir().expect("Couldn't find current dir");
+            path.push("p042_words.txt");
             std::fs::read_to_string(path).expect("Couldn't open the file")
         };
         let expected = 162;

@@ -38,11 +38,12 @@ fn main() {
 mod e022_tests {
     use super::*;
 
-      let path =
-                "C:\\Users\\Yisus\\Documents\\RustPractice\\Euler\\euler-rust\\e022\\names.txt";
     #[test]
     fn check_answer() {
         let names = {
+            let mut path =
+                std::env::current_dir().expect("Couldn't find current dir");
+            path.push("names.txt");
             std::fs::read_to_string(path).expect("Couldn't open the file")
         };
         let expected = 871198282;
