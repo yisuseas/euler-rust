@@ -9,53 +9,53 @@
 use std::collections::HashSet;
 
 fn triangle(n: u64) -> u64 {
-  n * (n + 1) / 2
+    n * (n + 1) / 2
 }
 
 fn pentagonal(n: u64) -> u64 {
-  n * (3 * n - 1) / 2
+    n * (3 * n - 1) / 2
 }
 
 fn hexagonal(n: u64) -> u64 {
-  n * (2 * n - 1)
+    n * (2 * n - 1)
 }
 
 fn answer() -> u64 {
-  let mut pen_found = HashSet::new();
-  let mut hex_found = HashSet::new();
+    let mut pen_found = HashSet::new();
+    let mut hex_found = HashSet::new();
 
-  println!("It can be verified that T285 = P165 = H143 = 40755. ");
-  println!(
-    "Find the next triangle number that is also pentagonal and hexagonal."
-  );
+    println!("It can be verified that T285 = P165 = H143 = 40755. ");
+    println!(
+        "Find the next triangle number that is also pentagonal and hexagonal."
+    );
 
-  let mut n = 1;
-  loop {
-    let tri = triangle(n);
-    pen_found.insert(pentagonal(n));
-    hex_found.insert(hexagonal(n));
+    let mut n = 1;
+    loop {
+        let tri = triangle(n);
+        pen_found.insert(pentagonal(n));
+        hex_found.insert(hexagonal(n));
 
-    if n > 285 && pen_found.contains(&tri) && hex_found.contains(&tri) {
-      return tri;
+        if n > 285 && pen_found.contains(&tri) && hex_found.contains(&tri) {
+            return tri;
+        }
+        n += 1;
     }
-    n += 1;
-  }
 }
 
 fn main() {
-  let a = answer();
-  println!("\nAnswer: {}\n", &a);
+    let a = answer();
+    println!("\nAnswer: {}\n", &a);
 }
 
 ////////////////////////////////////////////////////////////
 
 #[cfg(test)]
 mod e045_tests {
-  use super::*;
+    use super::*;
 
-  #[test]
-  fn check_answer() {
-    let expected = 1533776805;
-    assert_eq!(expected, answer());
-  }
+    #[test]
+    fn check_answer() {
+        let expected = 1533776805;
+        assert_eq!(expected, answer());
+    }
 }

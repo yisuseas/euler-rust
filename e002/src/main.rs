@@ -5,42 +5,42 @@
 // find the sum of the even-valued terms.
 
 fn answer() -> u64 {
-  let target: u64 = 4_000_000;
+    let target: u64 = 4_000_000;
 
-  let mut last_two: (u64, u64) = (1, 1);
-  let mut value: u64 = last_two.0 + last_two.1;
+    let mut last_two: (u64, u64) = (1, 1);
+    let mut value: u64 = last_two.0 + last_two.1;
 
-  let mut even_sum: u64 = 0;
+    let mut even_sum: u64 = 0;
 
-  while value <= target {
-    even_sum += value;
-    last_two.0 = last_two.1 + value;
-    last_two.1 = value + last_two.0;
-    value = last_two.0 + last_two.1;
-  }
+    while value <= target {
+        even_sum += value;
+        last_two.0 = last_two.1 + value;
+        last_two.1 = value + last_two.0;
+        value = last_two.0 + last_two.1;
+    }
 
-  println!("Considering the terms in the Fibonacci sequence");
-  println!("whose values do not exceed {}", target);
-  println!("Next even value would be {}", value);
-  println!("Find the sum of the even-valued terms.");
+    println!("Considering the terms in the Fibonacci sequence");
+    println!("whose values do not exceed {}", target);
+    println!("Next even value would be {}", value);
+    println!("Find the sum of the even-valued terms.");
 
-  even_sum
+    even_sum
 }
 
 fn main() {
-  let a = answer();
-  println!("\nAnswer: {}\n", &a);
+    let a = answer();
+    println!("\nAnswer: {}\n", &a);
 }
 
 ////////////////////////////////////////////////////////////
 
 #[cfg(test)]
 mod e002_tests {
-  use super::*;
+    use super::*;
 
-  #[test]
-  fn check_answer() {
-    let expected = 4613732;
-    assert_eq!(expected, answer());
-  }
+    #[test]
+    fn check_answer() {
+        let expected = 4613732;
+        assert_eq!(expected, answer());
+    }
 }

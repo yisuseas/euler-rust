@@ -5,45 +5,45 @@
 // Find the product abc.
 
 fn answer() -> u32 {
-  let abc_sum: u32 = 1_000;
+    let abc_sum: u32 = 1_000;
 
-  let mut product = 0;
+    let mut product = 0;
 
-  for a in 1..((abc_sum - 3) / 3) {
-    for b in (a + 1)..((abc_sum - 1 - a) / 2) {
-      let c = abc_sum - a - b;
-      if a * a + b * b == c * c {
-        println!("a: {}\nb: {}\nc: {}", &a, &b, &c);
-        product = a * b * c;
-      }
+    for a in 1..((abc_sum - 3) / 3) {
+        for b in (a + 1)..((abc_sum - 1 - a) / 2) {
+            let c = abc_sum - a - b;
+            if a * a + b * b == c * c {
+                println!("a: {}\nb: {}\nc: {}", &a, &b, &c);
+                product = a * b * c;
+            }
+        }
+        if product > 0 {
+            break;
+        }
     }
-    if product > 0 {
-      break;
-    }
-  }
 
-  println!(
+    println!(
     "There exists exactly one Pythagorean triplet for which a + b + c = 1000."
   );
-  println!("Find the product abc.");
+    println!("Find the product abc.");
 
-  product
+    product
 }
 
 fn main() {
-  let a = answer();
-  println!("\nAnswer: {}\n", &a);
+    let a = answer();
+    println!("\nAnswer: {}\n", &a);
 }
 
 ////////////////////////////////////////////////////////////
 
 #[cfg(test)]
 mod e009_tests {
-  use super::*;
+    use super::*;
 
-  #[test]
-  fn check_answer() {
-    let expected = 31875000;
-    assert_eq!(expected, answer());
-  }
+    #[test]
+    fn check_answer() {
+        let expected = 31875000;
+        assert_eq!(expected, answer());
+    }
 }

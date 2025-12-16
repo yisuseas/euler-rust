@@ -54,49 +54,49 @@
 struct Iterative;
 
 impl Iterative {
-  fn count_routes(m: usize, n: usize) -> u64 {
-    let mut grid = vec![vec![1u64; n + 1]; m + 1];
+    fn count_routes(m: usize, n: usize) -> u64 {
+        let mut grid = vec![vec![1u64; n + 1]; m + 1];
 
-    for row in 1..=m {
-      for col in 1..=n {
-        grid[row][col] = grid[row - 1][col] + grid[row][col - 1];
-      }
+        for row in 1..=m {
+            for col in 1..=n {
+                grid[row][col] = grid[row - 1][col] + grid[row][col - 1];
+            }
+        }
+
+        grid[m][n]
     }
 
-    grid[m][n]
-  }
+    fn solve_problem(side_length: usize) -> u64 {
+        let answer = Iterative::count_routes(side_length, side_length);
+        println!("How many routes are there in a {0}x{0} grid?", &side_length);
 
-  fn solve_problem(side_length: usize) -> u64 {
-    let answer = Iterative::count_routes(side_length, side_length);
-    println!("How many routes are there in a {0}x{0} grid?", &side_length);
-
-    answer
-  }
+        answer
+    }
 }
 
 fn answer() -> u64 {
-  let side_lenght: u8 = 20;
+    let side_lenght: u8 = 20;
 
-  // let mut r=Recursive::new();
-  // r.solve_problem(side_lenght)
+    // let mut r=Recursive::new();
+    // r.solve_problem(side_lenght)
 
-  Iterative::solve_problem(side_lenght as usize)
+    Iterative::solve_problem(side_lenght as usize)
 }
 
 fn main() {
-  let a = answer();
-  println!("\nAnswer: {}\n", &a);
+    let a = answer();
+    println!("\nAnswer: {}\n", &a);
 }
 
 ////////////////////////////////////////////////////////////
 
 #[cfg(test)]
 mod e015_tests {
-  use super::*;
+    use super::*;
 
-  #[test]
-  fn check_answer() {
-    let expected = 137846528820;
-    assert_eq!(expected, answer());
-  }
+    #[test]
+    fn check_answer() {
+        let expected = 137846528820;
+        assert_eq!(expected, answer());
+    }
 }

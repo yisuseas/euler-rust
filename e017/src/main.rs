@@ -12,38 +12,38 @@
 use utils::misc;
 
 fn letter_count(s: &str) -> usize {
-  s.replace("-", "").replace(" ", "").len()
+    s.replace("-", "").replace(" ", "").len()
 }
 
 fn answer() -> usize {
-  let target = 1_000;
+    let target = 1_000;
 
-  let mut total_letters = 0;
-  for n in 1..=target {
-    let n_text = misc::written_out(n);
-    total_letters += letter_count(&n_text);
-  }
+    let mut total_letters = 0;
+    for n in 1..=target {
+        let n_text = misc::written_out(n);
+        total_letters += letter_count(&n_text);
+    }
 
-  println!("If all the numbers from 1 to {}", target);
-  println!("were written out in words, how many letters would be used?");
+    println!("If all the numbers from 1 to {}", target);
+    println!("were written out in words, how many letters would be used?");
 
-  total_letters
+    total_letters
 }
 
 fn main() {
-  let a = answer();
-  println!("\nAnswer: {}\n", &a);
+    let a = answer();
+    println!("\nAnswer: {}\n", &a);
 }
 
 ////////////////////////////////////////////////////////////
 
 #[cfg(test)]
 mod e017_tests {
-  use super::*;
+    use super::*;
 
-  #[test]
-  fn check_answer() {
-    let expected = 21124;
-    assert_eq!(expected, answer());
-  }
+    #[test]
+    fn check_answer() {
+        let expected = 21124;
+        assert_eq!(expected, answer());
+    }
 }

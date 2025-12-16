@@ -13,46 +13,46 @@ use std::collections::HashSet;
 use utils::misc;
 
 fn proper_div_sum(n: usize) -> usize {
-  misc::proper_divisors_of(n).iter().sum()
+    misc::proper_divisors_of(n).iter().sum()
 }
 
 fn answer() -> u64 {
-  let target = 10_000;
-  let mut amicable = HashSet::new();
+    let target = 10_000;
+    let mut amicable = HashSet::new();
 
-  for a in 2..target {
-    let b = proper_div_sum(a);
-    if b > a {
-      if proper_div_sum(b) == a {
-        amicable.insert(a);
-        amicable.insert(b);
-      }
+    for a in 2..target {
+        let b = proper_div_sum(a);
+        if b > a {
+            if proper_div_sum(b) == a {
+                amicable.insert(a);
+                amicable.insert(b);
+            }
+        }
     }
-  }
 
-  println!(
-    "The amicable numbers under {} are:\n{:?}",
-    &target, &amicable
-  );
-  println!("Evaluate their sum.");
+    println!(
+        "The amicable numbers under {} are:\n{:?}",
+        &target, &amicable
+    );
+    println!("Evaluate their sum.");
 
-  amicable.iter().fold(0, |sum, &ami| sum + ami as u64)
+    amicable.iter().fold(0, |sum, &ami| sum + ami as u64)
 }
 
 fn main() {
-  let a = answer();
-  println!("\nAnswer: {}\n", &a);
+    let a = answer();
+    println!("\nAnswer: {}\n", &a);
 }
 
 ////////////////////////////////////////////////////////////
 
 #[cfg(test)]
 mod e021_tests {
-  use super::*;
+    use super::*;
 
-  #[test]
-  fn check_answer() {
-    let expected = 31626;
-    assert_eq!(expected, answer());
-  }
+    #[test]
+    fn check_answer() {
+        let expected = 31626;
+        assert_eq!(expected, answer());
+    }
 }

@@ -6,30 +6,30 @@
 use utils::primes;
 
 fn answer() -> usize {
-  let mut v: Vec<usize> = Vec::new();
-  for i in 2..=20 {
-    v.push(i);
-  }
+    let mut v: Vec<usize> = Vec::new();
+    for i in 2..=20 {
+        v.push(i);
+    }
 
-  println!("What is the smallest integer evenly divisible by all of the numbers from 1 to 20?");
+    println!("What is the smallest integer evenly divisible by all of the numbers from 1 to 20?");
 
-  primes::least_common_multiple(&v)
+    primes::least_common_multiple(&v)
 }
 
 fn main() {
-  let a = answer();
-  println!("\nAnswer: {}\n", &a);
+    let a = answer();
+    println!("\nAnswer: {}\n", &a);
 }
 
 ////////////////////////////////////////////////////////////
 
 #[cfg(test)]
 mod e005_tests {
-  use super::*;
+    use super::*;
 
-  #[test]
-  fn check_answer() {
-    let expected = 232792560;
-    assert_eq!(expected, answer());
-  }
+    #[test]
+    fn check_answer() {
+        let expected = 232792560;
+        assert_eq!(expected, answer());
+    }
 }

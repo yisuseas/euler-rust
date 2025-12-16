@@ -9,36 +9,36 @@
 // first one hundred natural numbers and the square of the sum.
 
 fn answer() -> u64 {
-  let n: u64 = 100;
-  let sum_of_squares: u64 = (n * (n + 1) * (2 * n + 1)) / 6;
-  let only_sum: u64 = (n * (n + 1)) / 2;
-  let square_of_sum: u64 = only_sum * only_sum;
-  let difference = square_of_sum - sum_of_squares;
+    let n: u64 = 100;
+    let sum_of_squares: u64 = (n * (n + 1) * (2 * n + 1)) / 6;
+    let only_sum: u64 = (n * (n + 1)) / 2;
+    let square_of_sum: u64 = only_sum * only_sum;
+    let difference = square_of_sum - sum_of_squares;
 
-  println!("Given the first {} natural numbers", n);
-  println!(
-    "Square of their sum: {}\nSum of their square: {}",
-    square_of_sum, sum_of_squares
-  );
-  println!("Find the difference between them.");
+    println!("Given the first {} natural numbers", n);
+    println!(
+        "Square of their sum: {}\nSum of their square: {}",
+        square_of_sum, sum_of_squares
+    );
+    println!("Find the difference between them.");
 
-  difference
+    difference
 }
 
 fn main() {
-  let a = answer();
-  println!("\nAnswer: {}\n", &a);
+    let a = answer();
+    println!("\nAnswer: {}\n", &a);
 }
 
 ////////////////////////////////////////////////////////////
 
 #[cfg(test)]
 mod e006_tests {
-  use super::*;
+    use super::*;
 
-  #[test]
-  fn check_answer() {
-    let expected = 25164150;
-    assert_eq!(expected, answer());
-  }
+    #[test]
+    fn check_answer() {
+        let expected = 25164150;
+        assert_eq!(expected, answer());
+    }
 }

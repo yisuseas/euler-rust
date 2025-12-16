@@ -20,50 +20,50 @@ use std::collections::HashSet;
 use utils::misc;
 
 fn is_abundant(n: u64) -> bool {
-  let n_u = n as usize;
-  n_u < misc::proper_divisors_of(n_u).iter().sum()
+    let n_u = n as usize;
+    n_u < misc::proper_divisors_of(n_u).iter().sum()
 }
 
 fn answer() -> u64 {
-  // Find Abundant Numbers
-  let target: u64 = 28_123;
-  let mut abundant = Vec::new();
-  for n in 1..=target {
-    if is_abundant(n) {
-      abundant.push(n);
+    // Find Abundant Numbers
+    let target: u64 = 28_123;
+    let mut abundant = Vec::new();
+    for n in 1..=target {
+        if is_abundant(n) {
+            abundant.push(n);
+        }
     }
-  }
-  // Make numbers from them
-  let mut from_two_abundant = HashSet::new();
-  for i in 0..abundant.len() {
-    for j in i..abundant.len() {
-      let sum = abundant[i] + abundant[j];
-      from_two_abundant.insert(sum);
+    // Make numbers from them
+    let mut from_two_abundant = HashSet::new();
+    for i in 0..abundant.len() {
+        for j in i..abundant.len() {
+            let sum = abundant[i] + abundant[j];
+            from_two_abundant.insert(sum);
+        }
     }
-  }
 
-  println!("Find the sum of all the positive integers which");
-  println!("cannot be written as the sum of two abundant numbers.");
+    println!("Find the sum of all the positive integers which");
+    println!("cannot be written as the sum of two abundant numbers.");
 
-  (1..=target)
-    .filter(|n| !from_two_abundant.contains(n))
-    .sum()
+    (1..=target)
+        .filter(|n| !from_two_abundant.contains(n))
+        .sum()
 }
 
 fn main() {
-  let a = answer();
-  println!("\nAnswer: {}\n", &a);
+    let a = answer();
+    println!("\nAnswer: {}\n", &a);
 }
 
 ////////////////////////////////////////////////////////////
 
 #[cfg(test)]
 mod e023_tests {
-  use super::*;
+    use super::*;
 
-  #[test]
-  fn check_answer() {
-    let expected = 4179871;
-    assert_eq!(expected, answer());
-  }
+    #[test]
+    fn check_answer() {
+        let expected = 4179871;
+        assert_eq!(expected, answer());
+    }
 }
