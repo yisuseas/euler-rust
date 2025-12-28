@@ -2,6 +2,7 @@
 //! in which each of the terms increases by 3330, is unusual in two ways:
 //! 1. each of the three terms are prime, and,
 //! 2. each of the 4-digit numbers are permutations of one another.
+//!
 //! There are no arithmetic sequences made up of
 //! three 1-, 2-, or 3-digit primes, exhibiting this property,
 //! but there is one other 4-digit increasing sequence.
@@ -41,12 +42,10 @@ fn answer() -> u64 {
         .filter_map(|&p| if p >= 1_000 { Some(p) } else { None })
         .collect();
     let prime_set: HashSet<usize> =
-        HashSet::from_iter(prime_vec.iter().map(|&p| p));
+        HashSet::from_iter(prime_vec.iter().copied());
 
-    for i in 0..prime_vec.len() - 1 {
-        let prime_i = prime_vec[i];
-        for j in i + 1..prime_vec.len() {
-            let prime_j = prime_vec[j];
+    for (i, &prime_i) in prime_vec.iter().enumerate() {
+        for &prime_j in prime_vec.iter().skip(i + 1) {
             if are_permutations(prime_i, prime_j) {
                 let diff = prime_j - prime_i;
                 let prime_k = prime_j + diff;

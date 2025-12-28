@@ -15,6 +15,7 @@ fn display_number(number: u8, enfasis: bool) -> String {
 }
 
 fn answer() -> u32 {
+    #![allow(clippy::zero_prefixed_literal)]
     let number_grid: [[u8; 20]; 20] = [
         [
             08, 02, 22, 97, 38, 15, 00, 40, 00, 75, 04, 05, 07, 78, 52, 12, 50,
@@ -122,8 +123,10 @@ fn answer() -> u32 {
                 hor_factors.iter().fold(1, |p, &factor| p * factor as u32);
             if product > greatest_product {
                 greatest_product = product;
-                for j in 0..adj_numbers {
-                    greatest_coords[j] = (row, col + j);
+                for (j, coords) in
+                    greatest_coords.iter_mut().enumerate().take(adj_numbers)
+                {
+                    *coords = (row, col + j);
                 }
             }
             // Vertical
@@ -131,8 +134,10 @@ fn answer() -> u32 {
                 ver_factors.iter().fold(1, |p, &factor| p * factor as u32);
             if product > greatest_product {
                 greatest_product = product;
-                for j in 0..adj_numbers {
-                    greatest_coords[j] = (row + j, col);
+                for (j, coords) in
+                    greatest_coords.iter_mut().enumerate().take(adj_numbers)
+                {
+                    *coords = (row + j, col);
                 }
             }
             // Diagonal
@@ -140,8 +145,10 @@ fn answer() -> u32 {
                 dia_factors.iter().fold(1, |p, &factor| p * factor as u32);
             if product > greatest_product {
                 greatest_product = product;
-                for j in 0..adj_numbers {
-                    greatest_coords[j] = (row + j, col + j);
+                for (j, coords) in
+                    greatest_coords.iter_mut().enumerate().take(adj_numbers)
+                {
+                    *coords = (row + j, col + j);
                 }
             }
             // Cross
@@ -149,8 +156,10 @@ fn answer() -> u32 {
                 crs_factors.iter().fold(1, |p, &factor| p * factor as u32);
             if product > greatest_product {
                 greatest_product = product;
-                for j in 0..adj_numbers {
-                    greatest_coords[j] = (row + adj_numbers - j, col + j);
+                for (j, coords) in
+                    greatest_coords.iter_mut().enumerate().take(adj_numbers)
+                {
+                    *coords = (row + adj_numbers - j, col + j);
                 }
             }
         }
@@ -163,18 +172,15 @@ fn answer() -> u32 {
     println!("in the same direction in the 20x20 grid:\n");
 
     // Display
-    for row in 0..20 {
-        for col in 0..20 {
+    for (row, row_numbers) in number_grid.iter().enumerate() {
+        for (col, &number) in row_numbers.iter().enumerate() {
             let here = (row, col);
             print!(
                 "{} ",
-                display_number(
-                    number_grid[row][col],
-                    greatest_coords.contains(&here)
-                )
+                display_number(number, greatest_coords.contains(&here))
             );
         }
-        print!("\n");
+        println!();
     }
 
     greatest_product

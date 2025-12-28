@@ -20,7 +20,7 @@ fn permutation_idx(items: &[u8], per_idx: usize) -> Option<Vec<u8>> {
         return None;
     }
     if per_idx == 0 {
-        let items_vec: Vec<u8> = items.iter().map(|&i| i).collect();
+        let items_vec: Vec<u8> = items.to_vec();
         return Some(items_vec);
     }
     let first_idx = per_idx / factorial(items.len() - 1);

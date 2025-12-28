@@ -100,7 +100,7 @@ impl std::fmt::Display for Square {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut s = String::new();
         for row in 0..self.side {
-            s.push_str("\n");
+            s.push('\n');
             for col in 0..self.side {
                 let n = self.number_arr[row * self.side + col];
                 let enfasis = row == col || row == self.side - col - 1;

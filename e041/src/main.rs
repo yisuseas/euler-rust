@@ -11,14 +11,14 @@ struct PrimeCache {
 
 impl PrimeCache {
     fn new() -> PrimeCache {
-        let target = (1_000_000_000 as f64).sqrt() as usize;
+        let target = (1_000_000_000_f64).sqrt() as usize;
         let prime_list = primes::primes_under(target);
         PrimeCache { prime_list }
     }
 
     fn is_prime(&self, number: usize) -> bool {
         for &prime in self.prime_list.iter() {
-            if number % prime == 0 {
+            if number.is_multiple_of(prime) {
                 return false;
             }
             if prime * prime > number {
@@ -38,7 +38,7 @@ fn answer() -> usize {
     for digit_count in (1..=9).rev() {
         // See if a prime can be made with these digits
         let digits_sum: usize = (1..=digit_count).sum();
-        if digits_sum % 3 == 0 {
+        if digits_sum.is_multiple_of(3) {
             continue;
         }
         // Try permutations of the digits from highest to lowest

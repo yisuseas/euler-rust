@@ -35,7 +35,7 @@ impl Graph {
             *d = 0;
         }
         //Loop on the queue as long as its not empty
-        while queue.len() > 0 {
+        while !queue.is_empty() {
             // Choose the node with the minimum distance from root
             let mut current = self.goal;
             let mut shortest_dis = dis_from_root[&current];
@@ -52,14 +52,9 @@ impl Graph {
                 // Find the shortest path
                 let mut best_path = vec![current];
                 let mut last = current;
-                loop {
-                    match best_parent[&last] {
-                        Some(parent) => {
-                            best_path.push(parent);
-                            last = parent;
-                        }
-                        None => break,
-                    }
+                while let Some(parent) = best_parent[&last] {
+                    best_path.push(parent);
+                    last = parent;
                 }
                 best_path.reverse();
                 return (dis_from_root[&current], best_path);

@@ -32,7 +32,7 @@ impl PentaCache {
     }
 
     fn last(&self) -> u64 {
-        self.numbers.last().unwrap().clone()
+        *self.numbers.last().unwrap()
     }
 
     fn is_pentagonal(&self, n: u64) -> bool {
@@ -78,10 +78,8 @@ fn answer() -> u64 {
             penta_cache.find_next();
         }
         let pk = penta_cache.numbers[k];
-        // let next = penta_cache.numbers[k + 1];
         let n = k as u64 + 2;
         let next = n * (3 * n - 1) / 2;
-        // println!("{pk} -> {next}");
         if next - pk > penta_pair.dif {
             break;
         }

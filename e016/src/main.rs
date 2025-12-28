@@ -4,7 +4,7 @@
 
 use utils::misc;
 
-fn two_times(digits: &Vec<u8>) -> Vec<u8> {
+fn two_times(digits: &[u8]) -> Vec<u8> {
     let mut product: Vec<u8> = Vec::new();
 
     let mut prev = 0;

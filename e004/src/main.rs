@@ -18,10 +18,8 @@ fn answer() -> u64 {
         let mut number_2 = end - 1;
         while number_2 >= start {
             let product = number_1 * number_2;
-            if product > largest_palindrome {
-                if misc::is_palindromic(&product) {
-                    largest_palindrome = product;
-                }
+            if product > largest_palindrome && misc::is_palindromic(&product) {
+                largest_palindrome = product;
             }
             number_2 -= 1;
         }

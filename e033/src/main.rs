@@ -53,11 +53,12 @@ fn answer() -> u64 {
                     let frac = Fraction::new(num, den);
                     let real_simpl = Fraction::new(num, den).simplified();
                     let novice_simpl = Fraction::new(simple_num, simple_den);
-                    if frac != real_simpl && frac != novice_simpl {
-                        if real_simpl.decimal() == novice_simpl.decimal() {
-                            println!("{}/{}", num, den);
-                            curious.push(frac);
-                        }
+                    if frac != real_simpl
+                        && frac != novice_simpl
+                        && real_simpl.decimal() == novice_simpl.decimal()
+                    {
+                        println!("{}/{}", num, den);
+                        curious.push(frac);
                     }
                 }
             }

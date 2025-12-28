@@ -7,7 +7,7 @@ fn answer() -> usize {
     let target = 2_000_000;
 
     let prime_vec = primes::primes_under(target);
-    let sum_of_primes = prime_vec.iter().fold(0, |sum, &prime| sum + prime);
+    let sum_of_primes = prime_vec.iter().sum();
 
     println!("Find the sum of all primes below {}.", target);
 

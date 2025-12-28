@@ -67,7 +67,7 @@ pub fn proper_divisors_of(n: usize) -> Vec<usize> {
     // Find half of the divisors
     let mut first_half = Vec::new();
     for d in 2..((n as f64).sqrt() as usize + 1) {
-        if n % d == 0 {
+        if n.is_multiple_of(d) {
             first_half.push(d);
         }
     }
@@ -175,12 +175,12 @@ pub fn written_out(n: usize) -> String {
         let units = n % 10;
         let tens = cardinals[&((n / 10) * 10)];
         if units > 0 {
-            return format!("{}-{}", &tens, &cardinals[&units]);
+            format!("{}-{}", &tens, &cardinals[&units])
         } else {
-            return format!("{}", &tens);
+            tens.to_string()
         }
     } else {
-        return format!("{}", &cardinals[&n]);
+        cardinals[&n].to_string()
     }
 }
 

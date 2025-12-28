@@ -28,10 +28,16 @@ impl std::fmt::Debug for Vertex {
     }
 }
 
+impl Default for Vertex {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl Vertex {
     /// Will return a new Vertex with a randomly generated id
     pub fn new() -> Vertex {
-        let between = Uniform::from('A'..'Z');
+        let between = Uniform::from('A'..='Z');
         let mut rng = rand::thread_rng();
 
         let mut char_list = ['A'; 8];
@@ -123,7 +129,7 @@ impl std::fmt::Debug for Graph {
             for n in v {
                 s.push_str(&format!("     +--{:?}\n", &n));
             }
-            s.push_str("\n");
+            s.push('\n');
         }
         write!(f, "{}", s)
     }

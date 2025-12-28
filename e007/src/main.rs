@@ -17,11 +17,11 @@ fn answer() -> u64 {
         loop {
             let mut is_prime = true;
             // Check if the test_number is divisible by any known prime
-            for prime in &prime_vec {
-                if *prime > (test_number as f64).sqrt() as u64 + 1 {
+            for &prime in &prime_vec {
+                if prime > (test_number as f64).sqrt() as u64 + 1 {
                     break;
                 }
-                if test_number % *prime == 0 {
+                if test_number.is_multiple_of(prime) {
                     is_prime = false;
                     break;
                 }
@@ -37,7 +37,7 @@ fn answer() -> u64 {
 
     println!("What is the {} prime number?", misc::ordinal_number(target));
 
-    prime_vec.last().unwrap().clone()
+    *prime_vec.last().unwrap()
 }
 
 fn main() {

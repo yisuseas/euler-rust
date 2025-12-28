@@ -44,7 +44,7 @@ fn answer(triangle: &str) -> u16 {
     let numbers: Vec<u8> = triangle
         .lines()
         .flat_map(|l| l.split(" "))
-        .map(|n| int_str_value(n))
+        .map(int_str_value)
         .collect();
     let t = graph::Triangle::from(&numbers);
     println!("Find the max possible value of the sum of the numbers in a path of the triangle:");

@@ -22,11 +22,9 @@ fn answer() -> u64 {
 
     for a in 2..target {
         let b = proper_div_sum(a);
-        if b > a {
-            if proper_div_sum(b) == a {
-                amicable.insert(a);
-                amicable.insert(b);
-            }
+        if b > a && proper_div_sum(b) == a {
+            amicable.insert(a);
+            amicable.insert(b);
         }
     }
 

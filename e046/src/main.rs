@@ -25,7 +25,7 @@ struct NumberCache {
 impl NumberCache {
     fn new() -> Self {
         let prime_vec = primes::primes_under(1_000_000);
-        let prime_set = HashSet::from_iter(prime_vec.iter().map(|&p| p));
+        let prime_set = HashSet::from_iter(prime_vec.iter().copied());
         let &biggest = prime_vec.last().unwrap();
         NumberCache {
             prime_vec,
@@ -47,7 +47,7 @@ impl NumberCache {
                 break;
             }
             let remainder = n - prime;
-            if remainder % 2 == 0 {
+            if remainder.is_multiple_of(2) {
                 let square = remainder / 2;
                 let x = (square as f32).sqrt() as usize;
                 if x * x == square {

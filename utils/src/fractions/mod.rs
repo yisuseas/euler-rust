@@ -123,7 +123,7 @@ impl Fraction {
     ///
     /// It makes a deep copy, since its only two u64 values
     pub fn simplified(&self) -> Fraction {
-        let mut s = self.clone();
+        let mut s = *self;
         s.simplify();
         s
     }

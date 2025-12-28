@@ -27,7 +27,6 @@ fn answer() -> u32 {
             .values()
             .fold(1, |d, &exp| d * (exp + 1));
 
-        // println!("{} -> {}", &triangle, &divisors);
         last_triangle = triangle;
         if divisors > target {
             break;

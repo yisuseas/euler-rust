@@ -28,12 +28,13 @@ impl Collatz {
             return self.known[&n];
         }
 
-        if n % 2 == 0 {
+        if n.is_multiple_of(2) {
             let value = 1 + self.count_chain(n / 2);
             self.known.insert(n, value);
         } else {
             // 3n + 1 will be even, so we count both
-            let value = 2 + self.count_chain((3 * n + 1) / 2);
+            let _3n_plus_1 = 3 * n + 1;
+            let value = 2 + self.count_chain(_3n_plus_1 / 2);
             self.known.insert(n, value);
         }
 

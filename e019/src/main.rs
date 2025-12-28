@@ -9,6 +9,7 @@
 //!    And on leap years, twenty-nine.
 //!  - A leap year occurs on any year evenly divisible by 4,
 //!    but not on a century unless it is divisible by 400.
+//!
 //! How many Sundays fell on the first of the month during the
 //! twentieth century (1 Jan 1901 to 31 Dec 2000)?
 
@@ -93,7 +94,8 @@ impl Calendar {
 
     fn next_year(&mut self) {
         let new_year = self.date.year + 1;
-        self.is_leap_year = new_year % 4 == 0 && !(new_year % 100 == 0);
+        self.is_leap_year =
+            new_year.is_multiple_of(4) && !new_year.is_multiple_of(100);
         self.date.year = new_year;
     }
 
@@ -172,7 +174,6 @@ fn answer() -> u64 {
             break;
         }
         if date.day.is_first_sunday() && date.year > 1900 {
-            // println!("{}", &date);
             first_sundays += 1;
         }
     }

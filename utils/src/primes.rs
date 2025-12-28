@@ -43,13 +43,9 @@ pub fn prime_factors_vec(n: usize) -> Vec<usize> {
 
     let mut quotient = n;
     for &prime in &primes_under_n {
-        loop {
-            if quotient % prime == 0 {
-                quotient /= prime;
-                prime_factors.push(prime);
-            } else {
-                break;
-            }
+        while quotient.is_multiple_of(prime) {
+            quotient /= prime;
+            prime_factors.push(prime);
         }
         if quotient == 1 {
             break;
@@ -71,14 +67,10 @@ pub fn prime_factors_hm(n: usize) -> HashMap<usize, u32> {
 
     let mut quotient = n;
     for &prime in &primes_under_n {
-        loop {
-            if quotient % prime == 0 {
-                let exp: &mut u32 = pf.entry(prime).or_insert(0u32);
-                quotient /= prime;
-                *exp += 1;
-            } else {
-                break;
-            }
+        while quotient.is_multiple_of(prime) {
+            let exp: &mut u32 = pf.entry(prime).or_insert(0u32);
+            quotient /= prime;
+            *exp += 1;
         }
         if quotient == 1 {
             break;
@@ -105,7 +97,7 @@ pub fn least_common_multiple(numbers: &[usize]) -> usize {
     // Divide all numbers by each off the primes,
     // and storing the primes that divide at least one
     // number untill all of them are 1
-    let mut quotients: Vec<usize> = numbers.iter().map(|&n| n).collect();
+    let mut quotients: Vec<usize> = numbers.to_vec();
     let mut prime_factors: Vec<usize> = Vec::new();
 
     for prime in prime_vec {
@@ -174,7 +166,7 @@ mod tests {
 
     #[test]
     fn least_common_multiple() {
-        assert_eq!(60, primes::least_common_multiple(&vec![2, 5, 1, 3, 4]));
-        assert_eq!(84, primes::least_common_multiple(&vec![4, 7, 12, 21, 42]));
+        assert_eq!(60, primes::least_common_multiple(&[2, 5, 1, 3, 4]));
+        assert_eq!(84, primes::least_common_multiple(&[4, 7, 12, 21, 42]));
     }
 }

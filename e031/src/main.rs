@@ -50,7 +50,7 @@ fn ways_to_make(quant: u8, coins: &[Coin]) -> usize {
     if quant == 0 || coins.len() == 1 {
         ways = 1;
     } else {
-        let mut coins: Vec<Coin> = coins.iter().map(|&c| c).collect();
+        let mut coins: Vec<Coin> = coins.to_vec();
         let last = coins.pop().unwrap();
 
         for ammount in 0..=(quant / last.value()) {

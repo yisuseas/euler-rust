@@ -10,11 +10,9 @@ fn answer() -> u64 {
     let mut digit_array = [0u8; 1_000];
     {
         // Make the digit array
-        let mut idx = 0;
-        for digit in thousand_digit_number.chars() {
+        for (idx, digit) in thousand_digit_number.chars().enumerate() {
             let value = digit as u8 - 48;
             digit_array[idx] = value;
-            idx += 1;
         }
     }
 

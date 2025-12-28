@@ -46,7 +46,7 @@ fn answer() -> u64 {
                             continue;
                         }
                         let d_3_5 = number_from_chars(&[d_3, d_4, d_5]);
-                        if d_3_5 % 3 != 0 {
+                        if !d_3_5.is_multiple_of(3) {
                             continue;
                         }
                         for d_6 in ['0', '5'] {
@@ -60,7 +60,7 @@ fn answer() -> u64 {
                                     continue;
                                 }
                                 let d_5_7 = number_from_chars(&[d_5, d_6, d_7]);
-                                if d_5_7 % 7 != 0 {
+                                if !d_5_7.is_multiple_of(7) {
                                     continue;
                                 }
                                 for d_8 in '0'..='9' {
@@ -71,7 +71,7 @@ fn answer() -> u64 {
                                     }
                                     let d_6_8 =
                                         number_from_chars(&[d_6, d_7, d_8]);
-                                    if d_6_8 % 11 != 0 {
+                                    if !d_6_8.is_multiple_of(11) {
                                         continue;
                                     }
                                     for d_9 in '0'..='9' {
@@ -85,7 +85,7 @@ fn answer() -> u64 {
                                         }
                                         let d_7_9 =
                                             number_from_chars(&[d_7, d_8, d_9]);
-                                        if d_7_9 % 13 != 0 {
+                                        if !d_7_9.is_multiple_of(13) {
                                             continue;
                                         }
                                         for d_10 in '0'..='9' {
@@ -100,7 +100,7 @@ fn answer() -> u64 {
                                             let d_8_10 = number_from_chars(&[
                                                 d_8, d_9, d_10,
                                             ]);
-                                            if d_8_10 % 17 != 0 {
+                                            if !d_8_10.is_multiple_of(17) {
                                                 continue;
                                             }
                                             let pandigital =

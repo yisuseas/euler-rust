@@ -27,12 +27,12 @@ impl std::fmt::Debug for Triangle {
             let spaces = (0..(2 * (self.base - row - 1)))
                 .map(|_| ' ')
                 .collect::<String>();
-            s.push_str(&format!("{}", spaces));
+            s.push_str(&spaces.to_string());
             for col in 0..=row {
                 let tv = self.vertex_vec[Triangle::get_idx(row, col)];
                 s.push_str(&format!("{}  ", display_number(tv.value, false)));
             }
-            s.push_str("\n");
+            s.push('\n');
         }
         // Vertices
         s.push_str("\nVertices:\n");
@@ -40,12 +40,12 @@ impl std::fmt::Debug for Triangle {
             let spaces = (0..(2 * (self.base - row - 1)))
                 .map(|_| ' ')
                 .collect::<String>();
-            s.push_str(&format!("{}", spaces));
+            s.push_str(&spaces.to_string());
             for col in 0..=row {
                 let tv = self.vertex_vec[Triangle::get_idx(row, col)];
                 s.push_str(&format!("{:?}  ", &tv.vertex));
             }
-            s.push_str("\n");
+            s.push('\n');
         }
         // Graph
         s.push_str(&format!("\n{:?}\n", &self.graph));
@@ -118,7 +118,7 @@ impl Triangle {
     pub fn shortest_path(&self) -> u16 {
         let (dist, path) = self.graph.dijkstra();
         let path_set: HashSet<_> = HashSet::from_iter(path.iter().copied());
-        print!("\n");
+        println!();
         for row in 0..self.base {
             let spaces = (0..(2 * (self.base - row - 1)))
                 .map(|_| ' ')
@@ -131,7 +131,7 @@ impl Triangle {
                     display_number(tv.value, path_set.contains(&tv.vertex))
                 );
             }
-            print!("\n");
+            println!();
         }
 
         dist
@@ -172,7 +172,7 @@ impl Triangle {
                     dist += tv.value as u16;
                 }
             }
-            print!("\n");
+            println!();
         }
         dist
     }
