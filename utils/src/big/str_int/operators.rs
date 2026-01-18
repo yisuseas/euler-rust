@@ -12,7 +12,6 @@ impl StrInteger {
         loop {
             let a = self_digits.next();
             let b = other_digits.next();
-            // if a == None && b == None && remainder == 0 {
             if a.is_none() && b.is_none() && remainder == 0 {
                 break;
             }

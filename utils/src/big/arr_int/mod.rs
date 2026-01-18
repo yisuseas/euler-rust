@@ -1,4 +1,5 @@
 use crate::misc;
+use std::fmt::Write;
 
 /// Struct of N digits, taking 1byte each.
 ///
@@ -8,8 +9,6 @@ use crate::misc;
 ///
 /// +, +=, -, -=, *, *=, /, /=
 #[derive(Debug, PartialEq, Eq, Clone, Copy, Hash)]
-// pub struct ArrInteger {
-//     pub digits: [u8; 200],
 pub struct ArrInteger<const N: usize> {
     pub digits: [u8; N],
 }
@@ -69,7 +68,6 @@ impl<const N: usize> ArrInteger<N> {
 
     /// Raises self to the power of `exp`, using exponentiation by squaring.
     pub fn pow(&self, exp: u32) -> ArrInteger<N> {
-        // println!("{} ^ {}", &self, &exp);
         if exp == 0 {
             return ArrInteger::<N>::from(1);
         }
@@ -93,7 +91,7 @@ impl<const N: usize> std::fmt::Display for ArrInteger<N> {
                 all_zeros = false;
             }
             if !all_zeros {
-                s.push_str(&format!("{}", digit));
+                write!(&mut s, "{}", digit)?;
             }
         }
         if all_zeros {
@@ -158,5 +156,16 @@ mod tests {
             ArrInteger::<10>::from(base.pow(exp)),
             ArrInteger::<10>::from(base).pow(exp)
         );
+    }
+
+    #[test]
+    fn fmt_display() {
+        let a = ArrInteger::<10>::from(562319);
+        let b = ArrInteger::<10>::from(2349);
+        let z = ArrInteger::<10>::from(0);
+
+        assert_eq!("562319", a.to_string());
+        assert_eq!("2349", b.to_string());
+        assert_eq!("0", z.to_string());
     }
 }

@@ -109,13 +109,6 @@ impl<const N: usize> std::cmp::PartialOrd for ArrInteger<N> {
                     break;
                 }
             }
-            // if self.digits[idx] > other.digits[idx] {
-            //     ordering = std::cmp::Ordering::Greater;
-            //     break;
-            // } else if self.digits[idx] < other.digits[idx] {
-            //     ordering = std::cmp::Ordering::Less;
-            //     break;
-            // }
         }
         Some(ordering)
     }
