@@ -5,25 +5,29 @@
 //! 10! is 3 + 6 + 2 + 8 + 8 + 0 + 0 = 27.
 //! Find the sum of the digits in the number 100!
 
-use utils::big::ArrInteger;
+use utils::{big::U1024, misc::char_to_u8};
 
-fn factorial<const N: usize>(n: ArrInteger<N>) -> ArrInteger<N> {
-    let one = ArrInteger::from(1);
-    if n == one {
-        return one;
+fn factorial(n: U1024) -> U1024 {
+    if n == U1024::ONE {
+        return n;
     }
-    n * factorial(n - one)
+    n * factorial(n - U1024::ONE)
+}
+
+fn char_to_u64(ch: char) -> u64 {
+    char_to_u8(ch) as u64
 }
 
 fn answer() -> u64 {
-    let n = ArrInteger::<200>::from(100);
+    let n = U1024::from_small(100);
     let n_fac = factorial(n);
     println!("{}! =\n{}", &n, &n_fac);
 
     n_fac
-        .digits
-        .iter()
-        .fold(0, |sum, &digit| sum + digit as u64)
+        .to_string()
+        .chars()
+        .map(char_to_u64)
+        .sum()
 }
 
 fn main() {

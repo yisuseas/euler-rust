@@ -10,14 +10,14 @@
 //! a^b for 2 <= a <= 100 and 2 <= b <= 100?
 
 use std::collections::HashSet;
-use utils::big::ArrInteger;
+use utils::big::U1024;
 
 fn answer(target: u32) -> usize {
-    let mut distinct_terms: HashSet<ArrInteger<201>> = HashSet::new();
+    let mut distinct_terms: HashSet<U1024> = HashSet::new();
 
-    for base in 2..=target {
-        let big_base = ArrInteger::<201>::from(base);
-        let mut power = ArrInteger::<201>::from(base);
+    for base in 2..=(target as u64) {
+        let big_base = U1024::from_small(base);
+        let mut power = U1024::from_small(base);
         for _exp in 2..=target {
             power *= big_base;
             distinct_terms.insert(power);
