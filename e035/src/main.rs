@@ -7,6 +7,7 @@
 
 use std::collections::HashSet;
 
+use misc::ToFromChar;
 use utils::{misc, primes};
 
 fn rotations(n: usize) -> Vec<usize> {
@@ -16,7 +17,7 @@ fn rotations(n: usize) -> Vec<usize> {
         let mut s = String::new();
         for addend in 0..digits.len() {
             let idx = (start_idx + addend) % digits.len();
-            s.push(misc::u8_to_char(digits[idx]));
+            s.push(digits[idx].to_char());
         }
         rot.push(s.parse().unwrap());
     }

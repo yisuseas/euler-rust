@@ -30,13 +30,13 @@
 // The max possible value of the sum of the numbers in a path of the
 // second triangle is 99 x 15 = 1 485, which fits in a u16
 
-use utils::{graph, misc};
+use utils::{graph, misc::ToFromChar};
 
 fn int_str_value(s: &str) -> u8 {
     s.chars()
         .rev()
         .enumerate()
-        .map(|(idx, c)| misc::char_to_u8(c) * 10u8.pow(idx as u32))
+        .map(|(idx, ch)| u8::from_char(ch) * 10u8.pow(idx as u32))
         .sum()
 }
 

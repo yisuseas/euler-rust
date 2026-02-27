@@ -2,6 +2,7 @@
 // 3 + 2 + 7 + 6 + 8 = 26.
 // What is the sum of the digits of the number 2^1000?
 
+use misc::ToFromChar;
 use utils::misc;
 
 fn two_times(digits: &[u8]) -> Vec<u8> {
@@ -22,14 +23,8 @@ fn two_times(digits: &[u8]) -> Vec<u8> {
     product
 }
 
-fn digits_to_string(digits: &Vec<u8>) -> String {
-    let mut s = String::new();
-    for &digit in digits {
-        let ch = misc::u8_to_char(digit);
-        s.push(ch);
-    }
-
-    s
+fn digits_to_string(digits: &[u8]) -> String {
+    digits.iter().map(ToFromChar::to_char).collect()
 }
 
 fn answer() -> u128 {
@@ -41,7 +36,7 @@ fn answer() -> u128 {
         }
         product
     };
-    let answer = digits.iter().fold(0u128, |sum, &digit| sum + digit as u128);
+    let answer = digits.iter().map(|&d| d as u128).sum();
 
     println!(
         "2^{} = {}\nWhat is the sum of its digits?",

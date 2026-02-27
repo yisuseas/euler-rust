@@ -2,15 +2,29 @@
 
 use std::collections::HashMap;
 
-/// takes a digit char, and returns it as an u8
-pub fn char_to_u8(c: char) -> u8 {
-    c as u8 - 48
+pub trait ToFromChar {
+    /// takes a digit unsigned integer, and returns it as a char.
+    fn to_char(&self) -> char;
+    /// Takes a digit char, and returns it as an unsigned integer.
+    fn from_char(ch: char) -> Self;
 }
 
-/// takes a digit u8, and returns it as a char
-pub fn u8_to_char(n: u8) -> char {
-    (n + 48) as char
+macro_rules! impl_to_from_char {
+    ( $( $ty:ty ),* ) => {
+        $(
+            impl ToFromChar for $ty {
+                fn to_char(&self) -> char {
+                    (*self as u8 + 48) as char
+                }
+                fn from_char(ch: char) -> $ty {
+                    (ch as u8 - 48) as $ty
+                }
+            }
+        )*
+    };
 }
+
+impl_to_from_char!(u8, u16, u32, u64, u128);
 
 /// The ordinal representation of a given integer
 pub fn ordinal_number(n: usize) -> String {
@@ -43,7 +57,7 @@ pub fn digits_of<T: std::fmt::Display>(n: T) -> Vec<u8> {
     let digits_str = n.to_string();
     let mut digits_vec = Vec::new();
     for ch in digits_str.chars() {
-        digits_vec.push(char_to_u8(ch));
+        digits_vec.push(u8::from_char(ch));
     }
 
     digits_vec
@@ -191,15 +205,33 @@ mod tests {
     use crate::misc;
 
     #[test]
-    fn u8_to_char() {
-        assert_eq!('8', misc::u8_to_char(8));
-        assert_eq!('0', misc::u8_to_char(0));
+    fn uint_to_char() {
+        use crate::misc::ToFromChar;
+        assert_eq!('8', 8u8.to_char());
+        assert_eq!('8', 8u16.to_char());
+        assert_eq!('8', 8u32.to_char());
+        assert_eq!('8', 8u64.to_char());
+        assert_eq!('8', 8u128.to_char());
+        assert_eq!('0', 0u8.to_char());
+        assert_eq!('0', 0u16.to_char());
+        assert_eq!('0', 0u32.to_char());
+        assert_eq!('0', 0u64.to_char());
+        assert_eq!('0', 0u128.to_char());
     }
 
     #[test]
-    fn char_to_u8() {
-        assert_eq!(8, misc::char_to_u8('8'));
-        assert_eq!(0, misc::char_to_u8('0'));
+    fn char_to_uint() {
+        use crate::misc::ToFromChar;
+        assert_eq!(8u8, u8::from_char('8'));
+        assert_eq!(8u16, u16::from_char('8'));
+        assert_eq!(8u32, u32::from_char('8'));
+        assert_eq!(8u64, u64::from_char('8'));
+        assert_eq!(8u128, u128::from_char('8'));
+        assert_eq!(0u8, u8::from_char('0'));
+        assert_eq!(0u16, u16::from_char('0'));
+        assert_eq!(0u32, u32::from_char('0'));
+        assert_eq!(0u64, u64::from_char('0'));
+        assert_eq!(0u128, u128::from_char('0'));
     }
 
     #[test]
@@ -228,15 +260,15 @@ mod tests {
     #[test]
     fn digits_of() {
         assert_eq!(vec![1, 2, 3, 4, 5], misc::digits_of(12345));
-        assert_eq!(vec![1, 0, 1], misc::digits_of(00101));
+        assert_eq!(vec![1, 0, 1], misc::digits_of(101));
     }
 
     #[test]
     fn palindromic() {
-        assert_eq!(true, misc::is_palindromic(&012321));
-        assert_eq!(false, misc::is_palindromic(&12301));
-        assert_eq!(true, misc::is_palindromic(&"tacocat"));
-        assert_eq!(false, misc::is_palindromic(&"tacoCat"));
+        assert!(misc::is_palindromic(&12321));
+        assert!(!misc::is_palindromic(&12301));
+        assert!(misc::is_palindromic(&"tacocat"));
+        assert!(!misc::is_palindromic(&"tacoCat"));
     }
 
     #[test]

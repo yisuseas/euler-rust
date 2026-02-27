@@ -1,4 +1,4 @@
-use crate::misc;
+use crate::misc::ToFromChar;
 use std::fmt::Write;
 
 /// Struct of N digits, taking 1byte each.
@@ -34,7 +34,7 @@ impl<const N: usize> ArrInteger<N> {
         let mut digits = [0; N];
         for idx in (0..N).rev() {
             if let Some(ch) = i_chars.next() {
-                digits[idx] = misc::char_to_u8(ch);
+                digits[idx] = u8::from_char(ch);
             } else {
                 break;
             }

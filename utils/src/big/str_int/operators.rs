@@ -1,5 +1,5 @@
 use super::*;
-use crate::misc::{char_to_u8, u8_to_char};
+use crate::misc::ToFromChar;
 
 impl StrInteger {
     pub fn plus(&self, other: &StrInteger) -> StrInteger {
@@ -32,15 +32,15 @@ impl StrInteger {
         other
             .n_str
             .chars()
-            .map(char_to_u8)
+            .map(u8::from_char)
             .rev()
             .enumerate()
-            .for_each(|(other_idx, other_digit)| {
+            .for_each(|(other_idx, other_digit): (usize, u8)| {
                 let mut partial_mult = vec![0; other_idx];
                 let mut remainder = 0;
 
-                self.n_str.chars().map(char_to_u8).rev().for_each(
-                    |self_digit| {
+                self.n_str.chars().map(u8::from_char).rev().for_each(
+                    |self_digit: u8| {
                         remainder += other_digit * self_digit;
                         partial_mult.push(remainder % 10);
                         remainder /= 10;
@@ -78,7 +78,7 @@ impl StrInteger {
             n_str: sum_digits
                 .iter()
                 .rev()
-                .map(|&digit| u8_to_char(digit))
+                .map(|digit| digit.to_char())
                 .collect(),
         }
     }
@@ -100,7 +100,6 @@ impl StrInteger {
         loop {
             let a = self_digits.next();
             let b = other_digits.next();
-            // if a == None && b == None {
             if a.is_none() && b.is_none() {
                 break;
             }
@@ -167,11 +166,6 @@ impl PartialOrd for StrInteger {
                     Ordering::Equal => {}
                     o => return Some(o),
                 }
-                // if a < b {
-                //     return Some(Ordering::Less);
-                // } else if a > b {
-                //     return Some(Ordering::Greater);
-                // }
             }
         }
         // This should never be reached
